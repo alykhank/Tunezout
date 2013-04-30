@@ -8,11 +8,35 @@
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 	<meta name="apple-mobile-web-app-title" content="Tunezout">
 	<title>Tunezout</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap.min.css') }}" media="screen">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css') }}">
+	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
 	<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
 	<link rel="apple-touch-icon-precomposed" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
 </head>
 <body>
-	<h1 id="title">Tunezout</h1>
+	<div class="container">
+		<h1 id="title">Tune<span class="highlight">z</span>out</h1>
+		<h2 id="slogan">Insert Slogan Here</h2>
+		<br>
+		<div class="row">
+			<div class="span3 form">
+				<h3>Insert</h3>
+				<p>Song Title, Year</p>
+				<p>Artist, Genre</p>
+			</div>
+		</div>
+		<br>
+		<div class="row">
+			<div class="span3 form">
+				<h3>Choose Your Genre</h3>
+				<p>Hip Hop</p>
+				<p>Electronic</p>
+				<p>R&B</p>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

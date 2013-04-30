@@ -1,9 +1,23 @@
 body {
-	font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	/* font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; */
 	background-color: black;
-	color: white;
 }
 
 #title {
+	color: white;
 	text-transform: uppercase;
+}
+
+#slogan {
+	color: #333;
+}
+
+.highlight {
+	color: green;
+}
+
+.form {
+	background-color: #aaa;
+	color: white;
+	text-transform: lowercase;
 }
