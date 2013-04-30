@@ -28,7 +28,7 @@
 						<legend>Insert</legend>
 						<input type="text" name="Song Title" placeholder="Song Title" required class="input-block-level">
 						<input type="text" name="Artist" placeholder="Artist" required class="input-block-level">
-						<input type="text" name="Year" placeholder="Year" required class="input-block-level">
+						<input type="number" name="Year" placeholder="Year" min="1" required class="input-block-level">
 						<select name="Genre" class="input-block-level">
 							{% for genre in genres %}
 								<option>{{ genre }}</option>

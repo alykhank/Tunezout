@@ -27,7 +27,8 @@ def submit():
 	artist = request.args.get('Artist')
 	year = request.args.get('Year')
 	genre = request.args.get('Genre')
-	songlist.append({ 'rank':str(len(songlist) + 1), 'title':title, 'artist':artist, 'year':year, 'genre':genre })
+	if (title and artist and year and genre):
+		songlist.append({ 'rank':str(len(songlist) + 1), 'title':title, 'artist':artist, 'year':year, 'genre':genre })
 	return redirect(url_for('index'))
 
 def copyf(key, valuelist):
