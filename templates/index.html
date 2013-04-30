@@ -18,7 +18,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1 id="title">Tune<span class="highlight">z</span>out</h1>
+		<a href="/"><h1 id="title">Tune<span class="highlight">z</span>out</h1></a>
 		<p class="lead muted">Insert Slogan Here</p>
 		<br>
 		<div class="row">
@@ -40,8 +40,9 @@
 				<form>
 					<fieldset>
 						<legend>Choose Your Genre</legend>
+						<a class="btn btn-inverse btn-large" href="/">All <i class="icon-arrow-right"></i></a>
 						{% for genre in genres %}
-							<a class="btn btn-inverse btn-large">{{ genre }} <i class="icon-arrow-right"></i></a>
+							<a class="btn btn-inverse btn-large" href="/?Genre={{ loop.index - 1 }}">{{ genre }} <i class="icon-arrow-right"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
@@ -54,6 +55,10 @@
 							<th>Rank</th>
 							<th>Title</th>
 							<th>Artist</th>
+							<th>Year</th>
+							{% if genre == 'All' %}
+								<th>Genre</th>
+							{% endif %}
 						</tr>
 					</thead>
 					<tbody>
@@ -62,6 +67,10 @@
 							<td>{{ song.rank }}</td>
 							<td>{{ song.title }}</td>
 							<td>{{ song.artist }}</td>
+							<td>{{ song.year }}</td>
+							{% if genre == 'All' %}
+								<td>{{ song.genre }}</td>
+							{% endif %}
 						</tr>
 						{% endfor %}
 					</tbody>
