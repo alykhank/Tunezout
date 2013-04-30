@@ -28,8 +28,9 @@ body {
 }
 
 .form {
-	background-color: #aaa;
-	color: white;
+	/* background-color: #aaa; */
+	background-color: white;
+	/* color: white; */
 	text-transform: lowercase;
 }
 

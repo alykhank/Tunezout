@@ -19,25 +19,29 @@
 <body>
 	<div class="container">
 		<h1 id="title">Tune<span class="highlight">z</span>out</h1>
-		<h2 id="slogan">Insert Slogan Here</h2>
+		<p id="slogan" class="lead">Insert Slogan Here</p>
 		<br>
 		<div class="row">
-			<div class="span3 form">
-				<p class="form-title">Insert</p>
+			<div class="span4 form">
+				<h3 class="form-title">Insert</h3>
 				<hr>
-				<p>Song Title, Year</p>
-				<p>Artist, Genre</p>
-				<a class="btn btn-primary">Post Your Song&hellip;</a>
-				<br><br>
-				<p class="form-title">Choose Your Genre</p>
+				<form>
+					<fieldset>
+						<input type="text" name="Song Title" placeholder="Song Title" class="input-medium"> <input type="text" name="Year" placeholder="Year" class="input-medium">
+						<input type="text" name="Artist" placeholder="Artist" class="input-medium"> <input type="text" name="Genre" placeholder="Genre" class="input-medium">
+						<button type="submit" class="btn btn-primary">Post Your Song&hellip;</button>
+						<button class="btn">Cancel</button>
+					</fieldset>
+				</form>
+				<h3 class="form-title">Choose Your Genre</h3>
 				<hr>
-				<a class="btn btn-primary">Hip Hop <i class="icon-arrow-right"></i></a>
-				<br><br>
-				<a class="btn btn-primary">Electronic <i class="icon-arrow-right"></i></a>
-				<br><br>
-				<a class="btn btn-primary">R&amp;B <i class="icon-arrow-right"></i></a>
+				<a class="btn btn-primary btn-block">Hip Hop <i class="icon-arrow-right"></i></a>
+				<br>
+				<a class="btn btn-primary btn-block">Electronic <i class="icon-arrow-right"></i></a>
+				<br>
+				<a class="btn btn-primary btn-block">R&amp;B <i class="icon-arrow-right"></i></a>
 			</div>
-			<div class="span8 offset1">
+			<div class="span8">
 				<table class="table">
 					<thead>
 						<tr>
