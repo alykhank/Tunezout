@@ -22,6 +22,11 @@ body {
 	text-transform: lowercase;
 }
 
+.form-title {
+	text-align: center;
+	text-transform: uppercase;
+}
+
 .table {
 	background-color: white;
 }
