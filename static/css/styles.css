@@ -19,21 +19,17 @@ body {
 }
 
 #slogan {
-	color: #333;
+	color: #666;
 }
 
 .highlight {
 	color: green;
 }
 
-.form {
-	background-color: white;
-}
-
 .form legend {
 	text-align: center;
 }
 
-.table {
-	background-color: white;
+input, .btn {
+	font-family: 'Bebas Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
