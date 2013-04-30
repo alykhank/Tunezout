@@ -22,7 +22,7 @@ body {
 	color: green;
 }
 
-.form legend {
+form fieldset legend {
 	text-align: center;
 }
 

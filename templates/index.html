@@ -22,8 +22,8 @@
 		<p class="lead muted">Insert Slogan Here</p>
 		<br>
 		<div class="row">
-			<div class="well span3 form">
-				<form>
+			<div class="span3">
+				<form class="well">
 					<fieldset>
 						<legend>Insert</legend>
 						<input type="text" name="Song Title" placeholder="Song Title" required class="input-block-level">
@@ -34,15 +34,15 @@
 								<option>{{ genre }}</option>
 							{% endfor %}
 						</select>
-						<button type="submit" formaction="submit" class="btn btn-inverse btn-block">Post Your Song&hellip;</button>
+						<button type="submit" formaction="submit" class="btn btn-inverse btn-large btn-block">Post Your Song&hellip;</button>
 					</fieldset>
 				</form>
-				<form>
+				<form class="well">
 					<fieldset>
 						<legend>Choose Your Genre</legend>
-						<a class="btn btn-inverse btn-large" href="/">All <i class="icon-arrow-right"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" href="/">All <i class="icon-arrow-right"></i></a>
 						{% for genre in genres %}
-							<a class="btn btn-inverse btn-large" href="/?Genre={{ loop.index - 1 }}">{{ genre }} <i class="icon-arrow-right"></i></a>
+							<a class="btn btn-inverse btn-large btn-block" href="/?Genre={{ loop.index - 1 }}">{{ genre }} <i class="icon-arrow-right"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
