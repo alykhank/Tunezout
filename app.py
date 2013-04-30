@@ -6,13 +6,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def root():
-	genre = 'Hip Hop'
+	genres = ('Hip Hop', 'Electronic', 'R&B')
 	songs = [\
 			{ 'rank':'1', 'title':'The Motto', 'artist':'Drake', 'year':'2013', 'genre':'Rap' },\
 			{ 'rank':'2', 'title':'Started from the Bottom', 'artist':'Drake', 'year':'2012', 'genre':'Hip Hop' },\
 			{ 'rank':'3', 'title':'Thrift Shop', 'artist':'Macklemore', 'year':'2013', 'genre':'House' }\
 			]
-	return render_template('index.html', genre=genre, songs=songs)
+	return render_template('index.html', genres=genres, genre=genres[0], songs=songs)
 
 if __name__ == "__main__":
 	# Bind to PORT if defined, otherwise default to 5000.
