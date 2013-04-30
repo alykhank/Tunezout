@@ -16,7 +16,6 @@ body {
 
 #title {
 	color: white;
-	text-transform: uppercase;
 }
 
 #slogan {
@@ -28,15 +27,11 @@ body {
 }
 
 .form {
-	/* background-color: #aaa; */
 	background-color: white;
-	/* color: white; */
-	text-transform: lowercase;
 }
 
-.form-title {
+.form legend {
 	text-align: center;
-	text-transform: uppercase;
 }
 
 .table {

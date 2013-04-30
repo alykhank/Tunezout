@@ -23,23 +23,35 @@
 		<br>
 		<div class="row">
 			<div class="span4 form">
-				<h3 class="form-title">Insert</h3>
-				<hr>
 				<form>
 					<fieldset>
-						<input type="text" name="Song Title" placeholder="Song Title" class="input-medium"> <input type="text" name="Year" placeholder="Year" class="input-medium">
-						<input type="text" name="Artist" placeholder="Artist" class="input-medium"> <input type="text" name="Genre" placeholder="Genre" class="input-medium">
-						<button type="submit" class="btn btn-primary">Post Your Song&hellip;</button>
-						<button class="btn">Cancel</button>
+						<legend>Insert</legend>
+						<div class="controls controls-row">
+							<input type="text" name="Song Title" placeholder="Song Title" class="span2">
+							<input type="text" name="Year" placeholder="Year" class="span2">
+						</div>
+						<div class="controls controls-row">
+							<input type="text" name="Artist" placeholder="Artist" class="span2">
+							<input type="text" name="Genre" placeholder="Genre" class="span2">
+						</div>
+						<div class="form-actions">
+							<div class="controls controls-row">
+								<button type="submit" class="btn btn-inverse span1.5">Post Your Song&hellip;</button>
+								<button class="btn span1.5">Cancel</button>
+							</div>
+						</div>
 					</fieldset>
 				</form>
-				<h3 class="form-title">Choose Your Genre</h3>
-				<hr>
-				<a class="btn btn-primary btn-block">Hip Hop <i class="icon-arrow-right"></i></a>
-				<br>
-				<a class="btn btn-primary btn-block">Electronic <i class="icon-arrow-right"></i></a>
-				<br>
-				<a class="btn btn-primary btn-block">R&amp;B <i class="icon-arrow-right"></i></a>
+				<form>
+					<fieldset>
+						<legend>Choose Your Genre</legend>
+						<a class="btn btn-inverse btn-block">Hip Hop <i class="icon-arrow-right"></i></a>
+						<br>
+						<a class="btn btn-inverse btn-block">Electronic <i class="icon-arrow-right"></i></a>
+						<br>
+						<a class="btn btn-inverse btn-block">R&amp;B <i class="icon-arrow-right"></i></a>
+					</fieldset>
+				</form>
 			</div>
 			<div class="span8">
 				<table class="table">
