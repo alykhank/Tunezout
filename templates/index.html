@@ -19,39 +19,32 @@
 <body>
 	<div class="container">
 		<h1 id="title">Tune<span class="highlight">z</span>out</h1>
-		<p id="slogan" class="lead">Insert Slogan Here</p>
+		<p class="lead muted">Insert Slogan Here</p>
 		<br>
 		<div class="row">
-			<div class="well span4 form">
+			<div class="well span3 form">
 				<form>
 					<fieldset>
 						<legend>Insert</legend>
-						<div class="controls controls-row">
-							<input type="text" name="Song Title" placeholder="Song Title" class="span2">
-							<input type="text" name="Year" placeholder="Year" class="span2">
-						</div>
-						<div class="controls controls-row">
-							<input type="text" name="Artist" placeholder="Artist" class="span2">
-							<input type="text" name="Genre" placeholder="Genre" class="span2">
-						</div>
+						<input type="text" name="Song Title" placeholder="Song Title" class="input-block-level">
+						<input type="text" name="Artist" placeholder="Artist" class="input-block-level">
+						<input type="text" name="Year" placeholder="Year" class="input-block-level">
+						<input type="text" name="Genre" placeholder="Genre" class="input-block-level">
 						<button type="submit" class="btn btn-inverse btn-block">Post Your Song&hellip;</button>
 					</fieldset>
 				</form>
 				<form>
 					<fieldset>
 						<legend>Choose Your Genre</legend>
-						<div class="controls controls-row offset1">
-							<div class="btn-group btn-group-vertical">
-								<a class="btn btn-inverse btn-large">Hip Hop <i class="icon-arrow-right"></i></a>
-								<a class="btn btn-inverse btn-large">Electronic <i class="icon-arrow-right"></i></a>
-								<a class="btn btn-inverse btn-large">R&amp;B <i class="icon-arrow-right"></i></a>
-							</div>
-						</div>
+						<a class="btn btn-inverse btn-large">Hip Hop <i class="icon-arrow-right"></i></a>
+						<a class="btn btn-inverse btn-large">Electronic <i class="icon-arrow-right"></i></a>
+						<a class="btn btn-inverse btn-large">R&amp;B <i class="icon-arrow-right"></i></a>
 					</fieldset>
 				</form>
 			</div>
 			<div class="well span7">
 				<table class="table">
+					<caption>{{ genre }}
 					<thead>
 						<tr>
 							<th>Rank</th>
@@ -60,21 +53,13 @@
 						</tr>
 					</thead>
 					<tbody>
+						{% for song in songs %}
 						<tr>
-							<td>1</td>
-							<td>The Motto</td>
-							<td>Drake</td>
+							<td>{{ song.rank }}</td>
+							<td>{{ song.title }}</td>
+							<td>{{ song.artist }}</td>
 						</tr>
-						<tr>
-							<td>2</td>
-							<td>Started from the Bottom</td>
-							<td>Drake</td>
-						</tr>
-						<tr>
-							<td>3</td>
-							<td>Thrift Shop</td>
-							<td>Macklemore</td>
-						</tr>
+						{% endfor %}
 					</tbody>
 				</table>
 			</div>
