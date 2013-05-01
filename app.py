@@ -46,7 +46,7 @@ songlist = [\
 @app.route('/')
 def index():
 	genreFilter = request.args.get('Genre', type=int)
-	if genreFilter and 0 < genreFilter and genreFilter < len(genres):
+	if genreFilter and 0 < genreFilter and genreFilter <= len(genres):
 		genre = genres[genreFilter - 1]
 		songs = copyf('genre', [genre])
 	else:
