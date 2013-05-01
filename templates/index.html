@@ -25,7 +25,7 @@
 			<div class="span3">
 				<form class="well">
 					<fieldset>
-						<legend>Insert</legend>
+						<legend>Add a Song</legend>
 						<input type="text" name="Song Title" placeholder="Song Title" required class="input-block-level">
 						<input type="text" name="Artist" placeholder="Artist" required class="input-block-level">
 						<input type="number" name="Year" placeholder="Year" min="1" required class="input-block-level">
@@ -39,15 +39,15 @@
 				</form>
 				<form class="well">
 					<fieldset>
-						<legend>Choose Your Genre</legend>
-						<a class="btn btn-inverse btn-large btn-block" href="/">All <i class="icon-arrow-right"></i></a>
+						<legend>Genre</legend>
+						<a class="btn btn-inverse btn-large btn-block" href="/">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for genre in genres %}
-							<a class="btn btn-inverse btn-large btn-block" href="/?Genre={{ loop.index - 1 }}">{{ genre }} <i class="icon-arrow-right"></i></a>
+							<a class="btn btn-inverse btn-large btn-block" href="/?Genre={{ loop.index }}">{{ genre }} <i class="icon-arrow-right icon-white"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
 			</div>
-			<div class="well span7">
+			<div class="well span8">
 				<table class="table">
 					<caption>{{ genre }}</caption>
 					<thead>
@@ -59,6 +59,7 @@
 							{% if genre == 'All' %}
 								<th>Genre</th>
 							{% endif %}
+							<th>Rate</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -71,12 +72,21 @@
 							{% if genre == 'All' %}
 								<td>{{ song.genre }}</td>
 							{% endif %}
+							<td>
+								<a class="btn" href="/rate?ID={{ song.id }}&Rate=1">{{ song.up }} <i class="icon-thumbs-up"></i></a>
+								<a class="btn" href="/rate?ID={{ song.id }}&Rate=0">{{ song.down }} <i class="icon-thumbs-down"></i></a>
+							</td>
 						</tr>
 						{% endfor %}
 					</tbody>
 				</table>
 			</div>
 		</div>
+		<hr>
+		<div class="muted text-center">
+			&copy; 2013 Adil Dharshi &amp; <a href="http://alykhan.com">Alykhan Kanji</a>. All Rights Reserved.
+		</div>
+		<br>
 	</div>
 </body>
 </html>
