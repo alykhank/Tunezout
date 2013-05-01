@@ -73,8 +73,12 @@
 								<td>{{ song.genre }}</td>
 							{% endif %}
 							<td>
-								<a class="btn" href="/rate?ID={{ song.id }}&Rate=1">{{ song.up }} <i class="icon-thumbs-up"></i></a>
-								<a class="btn" href="/rate?ID={{ song.id }}&Rate=0">{{ song.down }} <i class="icon-thumbs-down"></i></a>
+								<a class="btn" href="/rate?ID={{ song.id }}&Rate=2">
+									<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
+								</a>
+								<a class="btn" href="/rate?ID={{ song.id }}&Rate=1">
+									<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
+								</a>
 							</td>
 						</tr>
 						{% endfor %}
