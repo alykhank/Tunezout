@@ -36,9 +36,14 @@
 						<input type="text" name="Song Title" placeholder="Song Title" required class="input-block-level">
 						<input type="text" name="Artist" placeholder="Artist" required class="input-block-level">
 						<input type="number" name="Year" placeholder="Year" min="1" required class="input-block-level">
+						<label>Genre</label>
 						<select name="Genre" class="input-block-level">
 							{% for genre in genres %}
+								{% if genre == 'Hip-Hop/Rap' %}
+								<option selected>{{ genre }}</option>
+								{% else %}
 								<option>{{ genre }}</option>
+								{% endif %}
 							{% endfor %}
 						</select>
 						<button type="submit" formaction="submit" class="btn btn-inverse btn-large btn-block">Post Your Song&hellip;</button>
@@ -46,7 +51,7 @@
 				</form>
 				<form class="well">
 					<fieldset>
-						<legend>Genre</legend>
+						<legend>Genres</legend>
 						<a class="btn btn-inverse btn-large btn-block" href="/">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for genre in genres %}
 							<a class="btn btn-inverse btn-large btn-block" href="/?Genre={{ loop.index }}">{{ genre }} <i class="icon-arrow-right icon-white"></i></a>
