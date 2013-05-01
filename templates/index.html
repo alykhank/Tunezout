@@ -71,13 +71,13 @@
 							{% if genre == 'All' %}
 								<th>Genre</th>
 							{% endif %}
-							<th>Rate</th>
+							<th>Rating</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for song in songs %}
 						<tr>
-							<td>{{ song.rank }}</td>
+							<td>{{ loop.index }}</td>
 							<td>{{ song.title }}</td>
 							<td>{{ song.artist }}</td>
 							<td>{{ song.year }}</td>
@@ -85,12 +85,17 @@
 								<td>{{ song.genre }}</td>
 							{% endif %}
 							<td>
-								<a class="btn" href="/rate?ID={{ song.id }}&Rate=2">
-									<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
-								</a>
-								<a class="btn" href="/rate?ID={{ song.id }}&Rate=1">
-									<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
-								</a>
+								<p class="text-info">
+									{{ song.score }}
+									&nbsp;
+									<a class="btn" href="/rate?ID={{ song.id }}&Rate=2">
+										<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
+									</a>
+									&nbsp;
+									<a class="btn" href="/rate?ID={{ song.id }}&Rate=1">
+										<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
+									</a>
+								</p>
 							</td>
 						</tr>
 						{% endfor %}
