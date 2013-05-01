@@ -9,7 +9,6 @@ db = SQLAlchemy(app)
 
 class Song(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
-	rank = db.Column(db.Integer)
 	title = db.Column(db.String)
 	artist = db.Column(db.String)
 	year = db.Column(db.Integer)
@@ -18,8 +17,7 @@ class Song(db.Model):
 	down = db.Column(db.Integer)
 	score = db.Column(db.Integer)
 
-	def __init__(self, rank, title, artist, year, genre, up, down, score):
-		self.rank = rank
+	def __init__(self, title, artist, year, genre, up, down, score):
 		self.title = title
 		self.artist = artist
 		self.year = year
@@ -29,4 +27,4 @@ class Song(db.Model):
 		self.score = score
 
 	def __repr__(self):
-		return "<Song('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.rank, self.title, self.artist, self.year, self.genre, self.up, self.down, self.score)
+		return "<Song('%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.title, self.artist, self.year, self.genre, self.up, self.down, self.score)
