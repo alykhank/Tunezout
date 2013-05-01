@@ -18,9 +18,16 @@
 </head>
 <body>
 	<div class="container">
-		<a href="/"><h1 id="title">Tune<span class="highlight">z</span>out</h1></a>
-		<p class="lead muted">Insert Slogan Here</p>
-		<br>
+		<div class="hero-unit row">
+			<div class="span6">
+				<br>
+				<a href="/"><h1 id="title">Tune<span class="highlight">z</span>out</h1></a>
+				<p class="lead muted">Insert Slogan Here</p>
+			</div>
+			<div class="span4 offset2">
+				<img src="{{ url_for('static', filename='img/logo.jpg') }}" height="200px">
+			</div>
+		</div>
 		<div class="row">
 			<div class="span3">
 				<form class="well">

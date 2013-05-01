@@ -22,6 +22,20 @@ body {
 	color: green;
 }
 
+.hero-unit {
+	background-color: black;
+	padding: 0 !important;
+	margin: 0;
+}
+
+.hero-unit h1 {
+	font-size: 5em;
+}
+
+.hero-unit p {
+	font-size: 2.4em;
+}
+
 form fieldset legend {
 	text-align: center;
 }
