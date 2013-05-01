@@ -24,8 +24,8 @@
 				<a href="/"><h1 id="title">Tune<span class="highlight">z</span>out</h1></a>
 				<p class="lead muted">Insert Slogan Here</p>
 			</div>
-			<div class="span4 offset2">
-				<img src="{{ url_for('static', filename='img/logo.jpg') }}" height="200px">
+			<div class="span5">
+				<img src="{{ url_for('static', filename='img/logo.jpg') }}">
 			</div>
 		</div>
 		<div class="row">
@@ -85,17 +85,16 @@
 								<td>{{ song.genre }}</td>
 							{% endif %}
 							<td>
-								<p class="text-info">
-									{{ song.score }}
-									&nbsp;
+								<span class="badge badge-inverse">{{ song.score }}</span>
+								&nbsp;
+								<div class="btn-group">
 									<a class="btn" href="/rate?ID={{ song.id }}&Rate=2">
 										<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
 									</a>
-									&nbsp;
 									<a class="btn" href="/rate?ID={{ song.id }}&Rate=1">
 										<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
 									</a>
-								</p>
+								</div>
 							</td>
 						</tr>
 						{% endfor %}
