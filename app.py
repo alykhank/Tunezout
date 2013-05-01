@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 import os
 from flask import Flask, render_template, request, redirect, url_for
+from models import app, db, Song
 
-app = Flask(__name__)
 genres = ('Country', 'Dance/Electronic', 'Hip-Hop/Rap', 'Jazz', 'R&B', 'Rock', 'Other')
 songlist = [\
 		{ 'id':1, 'rank':1, 'title':'The Motto', 'artist':'Drake', 'year':2013, 'genre':'Hip-Hop/Rap', 'up':12, 'down':4 },\
