@@ -10,7 +10,7 @@ def index():
 	genreFilter = request.args.get('Genre', type=int)
 	if genreFilter and 0 < genreFilter and genreFilter <= len(genres):
 		genre = genres[genreFilter - 1]
-		songs = copyf('genre', [genre])
+		songs = Song.query.filter(Song.genre == genre)
 	else:
 		genre = 'All'
 		songs = Song.query.order_by(Song.score.desc())
@@ -40,9 +40,6 @@ def rate():
 			Song.query.filter(Song.id == id).update({'up':Song.up+1, 'score':Song.score+1})
 			db.session.commit()
 	return redirect(url_for('index'))
-
-def copyf(key, valuelist):
-	return [dictio for dictio in songlist if dictio[key] in valuelist]
 
 if __name__ == "__main__":
 	# Bind to PORT if defined, otherwise default to 5000.
