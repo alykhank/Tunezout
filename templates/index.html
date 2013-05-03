@@ -13,7 +13,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css') }}">
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
-	<script>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
+	<script>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }}; $GENRE=0;</script>
+	<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 	<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
 	<link rel="apple-touch-icon-precomposed" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
 </head>
@@ -53,9 +54,9 @@
 				<form class="well">
 					<fieldset>
 						<legend>Genres</legend>
-						<a class="btn btn-inverse btn-large btn-block" onclick="updateSongs(0)">All <i class="icon-arrow-right icon-white"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" onclick="$GENRE=0; updateSongs();">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for genre in genres %}
-						<a class="btn btn-inverse btn-large btn-block" onclick="updateSongs({{ loop.index }})">{{ genre }} <i class="icon-arrow-right icon-white"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" onclick="$GENRE={{ loop.index }}; updateSongs();">{{ genre }} <i class="icon-arrow-right icon-white"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
@@ -75,8 +76,7 @@
 					</thead>
 					<tbody>
 					</tbody>
-					<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-					<script>updateSongs(0);</script>
+					<script>updateSongs();</script>
 				</table>
 			</div>
 		</div>
