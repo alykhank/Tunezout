@@ -25,10 +25,10 @@ def songs():
 
 @app.route('/submit')
 def submit():
-	title = request.args.get('Song Title', type=str)
-	artist = request.args.get('Artist', type=str)
-	year = request.args.get('Year', type=int)
-	genre = request.args.get('Genre', type=str)
+	title = request.args.get('Song Title', '', type=str)
+	artist = request.args.get('Artist', '', type=str)
+	year = request.args.get('Year', 1, type=int)
+	genre = request.args.get('Genre', 'Other', type=str)
 	if title and artist and year and genre and (genre in genres):
 		song = Song(title, artist, year, genre, 0, 0, 0)
 		db.session.add(song)
