@@ -1,20 +1,20 @@
 #!/usr/bin/env python
 import os
 from flask import Flask, render_template, request, redirect, url_for, jsonify
-from models import app, db, Song
-
-genres = ('Country', 'Dance/Electronic', 'Hip-Hop/Rap', 'House', 'Jazz', 'R&B', 'Rock', 'Other')
+from models import app, db, Song, Genre
 
 @app.route('/')
 def index():
-	return render_template('index.html', genres=genres)
+	queriedGenres = Genre.query.order_by(Genre.name.asc()).all()
+	return render_template('index.html', genres=queriedGenres)
 
 @app.route('/songs')
 def songs():
 	songs = []
 	genreFilter = request.args.get('Genre', 0, type=int)
-	if genreFilter and 0 < genreFilter and genreFilter <= len(genres):
-		genre = genres[genreFilter - 1]
+	queriedGenres = Genre.query.order_by(Genre.name.asc()).all()
+	if genreFilter and 0 < genreFilter and genreFilter <= len(queriedGenres):
+		genre = queriedGenres[genreFilter - 1].name
 		queriedSongs = Song.query.filter(Song.genre == genre).order_by(Song.score.desc())
 	else:
 		genre = 'All'
@@ -29,6 +29,10 @@ def submit():
 	artist = request.args.get('Artist', '', type=str)
 	year = request.args.get('Year', 1, type=int)
 	genre = request.args.get('Genre', 'Other', type=str)
+	queriedGenres = Genre.query.order_by(Genre.name.asc()).all()
+	genres = []
+	for item in queriedGenres:
+		genres.append(item.name)
 	if title and artist and year and genre and (genre in genres):
 		song = Song(title, artist, year, genre, 0, 0, 0)
 		db.session.add(song)

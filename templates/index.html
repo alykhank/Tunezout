@@ -41,10 +41,10 @@
 						<label>Genre</label>
 						<select name="Genre" class="input-block-level">
 							{% for genre in genres %}
-								{% if genre == 'Hip-Hop/Rap' %}
-								<option selected>{{ genre }}</option>
+								{% if genre.name == 'Hip-Hop/Rap' %}
+								<option selected>{{ genre.name }}</option>
 								{% else %}
-								<option>{{ genre }}</option>
+								<option>{{ genre.name }}</option>
 								{% endif %}
 							{% endfor %}
 						</select>
@@ -56,7 +56,7 @@
 						<legend>Genres</legend>
 						<a class="btn btn-inverse btn-large btn-block" onclick="$GENRE=0; updateSongs();">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for genre in genres %}
-						<a class="btn btn-inverse btn-large btn-block" onclick="$GENRE={{ loop.index }}; updateSongs();">{{ genre }} <i class="icon-arrow-right icon-white"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" onclick="$GENRE={{ loop.index }}; updateSongs();">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
