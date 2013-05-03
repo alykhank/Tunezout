@@ -28,3 +28,13 @@ class Song(db.Model):
 
 	def __repr__(self):
 		return "<Song('%s', '%s', '%s', '%s', '%s', '%s', '%s')>" % (self.title, self.artist, self.year, self.genre, self.up, self.down, self.score)
+
+class Genre(db.Model):
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String)
+
+	def __init__(self, name):
+		self.name = name
+
+	def __repr__(self):
+		return "<Genre('%s')>" % (self.name)
