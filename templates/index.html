@@ -13,17 +13,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css') }}">
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
-	<script>
-		$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
-		function rate(songId, rating) {
-			$.get($SCRIPT_ROOT + '/rate', {
-				ID: songId,
-				Rate: rating
-			});
-			location.reload();
-			return false;
-		}
-	</script>
+	<script>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
 	<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
 	<link rel="apple-touch-icon-precomposed" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
 </head>
@@ -63,53 +53,30 @@
 				<form class="well">
 					<fieldset>
 						<legend>Genres</legend>
-						<a class="btn btn-inverse btn-large btn-block" href="/">All <i class="icon-arrow-right icon-white"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" onclick="updateSongs(0)">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for genre in genres %}
-							<a class="btn btn-inverse btn-large btn-block" href="/?Genre={{ loop.index }}">{{ genre }} <i class="icon-arrow-right icon-white"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" onclick="updateSongs({{ loop.index }})">{{ genre }} <i class="icon-arrow-right icon-white"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
 			</div>
 			<div class="well span8">
 				<table class="table">
-					<caption>{{ genre }}</caption>
+					<caption></caption>
 					<thead>
 						<tr>
 							<th>Rank</th>
 							<th>Title</th>
 							<th>Artist</th>
 							<th>Year</th>
-							{% if genre == 'All' %}
-								<th>Genre</th>
-							{% endif %}
+							<th>Genre</th>
 							<th>Rating</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for song in songs %}
-						<tr>
-							<td>{{ loop.index }}</td>
-							<td>{{ song.title }}</td>
-							<td>{{ song.artist }}</td>
-							<td>{{ song.year }}</td>
-							{% if genre == 'All' %}
-								<td>{{ song.genre }}</td>
-							{% endif %}
-							<td>
-								<span class="badge badge-inverse">{{ song.score }}</span>
-								&nbsp;
-								<div class="btn-group">
-									<a class="btn" onclick="rate({{ song.id }}, 2)">
-										<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
-									</a>
-									<a class="btn" onclick="rate({{ song.id }}, 1)">
-										<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
-									</a>
-								</div>
-							</td>
-						</tr>
-						{% endfor %}
 					</tbody>
+					<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+					<script>updateSongs(0);</script>
 				</table>
 			</div>
 		</div>
