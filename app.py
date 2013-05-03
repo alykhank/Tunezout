@@ -10,7 +10,7 @@ def index():
 	genreFilter = request.args.get('Genre', type=int)
 	if genreFilter and 0 < genreFilter and genreFilter <= len(genres):
 		genre = genres[genreFilter - 1]
-		songs = Song.query.filter(Song.genre == genre)
+		songs = Song.query.filter(Song.genre == genre).order_by(Song.score.desc())
 	else:
 		genre = 'All'
 		songs = Song.query.order_by(Song.score.desc())
@@ -30,8 +30,8 @@ def submit():
 
 @app.route('/rate')
 def rate():
-	id = request.args.get('ID', type=int)
-	rate = request.args.get('Rate', type=int)
+	id = request.args.get('ID', 0, type=int)
+	rate = request.args.get('Rate', 0, type=int)
 	if id and rate:
 		if rate == 1:
 			Song.query.filter(Song.id == id).update({'down':Song.down+1, 'score':Song.score-1})

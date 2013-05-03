@@ -13,6 +13,17 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css') }}">
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
 	<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
+	<script>
+		$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+		function rate(songId, rating) {
+			$.get($SCRIPT_ROOT + '/rate', {
+				ID: songId,
+				Rate: rating
+			});
+			location.reload();
+			return false;
+		}
+	</script>
 	<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
 	<link rel="apple-touch-icon-precomposed" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
 </head>
@@ -88,10 +99,10 @@
 								<span class="badge badge-inverse">{{ song.score }}</span>
 								&nbsp;
 								<div class="btn-group">
-									<a class="btn" href="/rate?ID={{ song.id }}&Rate=2">
+									<a class="btn" onclick="rate({{ song.id }}, 2)">
 										<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
 									</a>
-									<a class="btn" href="/rate?ID={{ song.id }}&Rate=1">
+									<a class="btn" onclick="rate({{ song.id }}, 1)">
 										<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
 									</a>
 								</div>
@@ -104,7 +115,7 @@
 		</div>
 		<hr>
 		<div class="muted text-center">
-			&copy; 2013 Adil Dharshi &amp; <a href="http://alykhan.com">Alykhan Kanji</a>. All Rights Reserved.
+			&copy; 2013 Adil Dharshi &amp; <a href="http://alykhan.com" target="_blank">Alykhan Kanji</a>. All Rights Reserved.
 		</div>
 		<br>
 	</div>
