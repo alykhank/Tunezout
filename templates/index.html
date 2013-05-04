@@ -80,14 +80,26 @@
 						{% for song in songs %}
 						<tr>
 							<td>{{ loop.index }}</td>
-							<td>{{ song.title }}</td>
-							<td>{{ song.artist }}</td>
+							{% if song.title %}
+								<td>{{ song.title }}</td>
+							{% else %}
+								<td>&ndash;</td>
+							{% endif %}
+
+							{% if song.artist %}
+								<td>{{ song.artist }}</td>
+							{% else %}
+								<td>&ndash;</td>
+							{% endif %}
+
 							{% if song.year %}
 								<td>{{ song.year }}</td>
 							{% else %}
 								<td>&ndash;</td>
 							{% endif %}
+
 							<td>{{ song.genre.name }}</td>
+
 							<td>
 								<span class="badge badge-inverse">{{ song.score }}</span>
 								&nbsp;
