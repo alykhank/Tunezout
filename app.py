@@ -17,6 +17,18 @@ def index(genre):
 		songs = Song.query.order_by(Song.score.desc()).all()
 	return render_template('index.html', genres=genres, genre=genre, songs=songs)
 
+@app.route('/songs')
+def songs():
+	genreFilter = request.args.get('genre', 0, type=int)
+	genre = Genre.query.filter(Genre.id == genreFilter).first()
+	genres = Genre.query.order_by(Genre.name.asc()).all()
+	if genre:
+		songs = Song.query.filter(Song.genre == genre).order_by(Song.score.desc()).all()
+	else:
+		songs = Song.query.order_by(Song.score.desc()).all()
+	table = render_template('songs.html', genre=genre, songs=songs)
+	return table
+
 @app.route('/submit')
 def submit():
 	title = request.args.get('title', '', type=str)

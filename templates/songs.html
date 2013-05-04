@@ -1,0 +1,56 @@
+<table class="table">
+	{% if genre %}
+		<caption>{{ genre.name }}</caption>
+	{% else %}
+		<caption>All</caption>
+	{% endif %}
+	<thead>
+		<tr>
+			<th>Rank</th>
+			<th>Title</th>
+			<th>Artist</th>
+			<th>Year</th>
+			<th>Genre</th>
+			<th>Rating</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for song in songs %}
+		<tr>
+			<td>{{ loop.index }}</td>
+			{% if song.title %}
+				<td>{{ song.title }}</td>
+			{% else %}
+				<td>&ndash;</td>
+			{% endif %}
+
+			{% if song.artist %}
+				<td>{{ song.artist }}</td>
+			{% else %}
+				<td>&ndash;</td>
+			{% endif %}
+
+			{% if song.year %}
+				<td>{{ song.year }}</td>
+			{% else %}
+				<td>&ndash;</td>
+			{% endif %}
+
+			<td>{{ song.genre.name }}</td>
+
+			<td>
+				<span class="badge badge-inverse">{{ song.score }}</span>
+				&nbsp;
+				<div class="btn-group">
+					<a class="btn" href="/rate?id={{ song.id }}&rate=2&genre={{ genre.id }}">
+						<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
+					</a>
+					<a class="btn" href="/rate?id={{ song.id }}&rate=1&genre={{ genre.id }}">
+						<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
+					</a>
+				</div>
+			</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
