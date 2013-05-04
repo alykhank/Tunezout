@@ -5,3 +5,8 @@ function switchGenre(id) {
 		$('#genre' + id).removeClass('btn-inverse').addClass('btn-danger');
 	});
 }
+function rateSong(song, rating, genre) {
+	$.get('/rate?id=' + song + '&rate=' + rating + '&genre=' + genre, function(data) {
+		$('table').html(data)
+	});
+}

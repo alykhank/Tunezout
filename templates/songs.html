@@ -42,10 +42,10 @@
 				<span class="badge badge-inverse">{{ song.score }}</span>
 				&nbsp;
 				<div class="btn-group">
-					<a class="btn" onclick="$.get('/rate?id={{ song.id }}&rate=2&genre={{ genre.id }}', function(data) { $('table').html(data) });">
+					<a class="btn" onclick="rateSong({{ song.id }}, 2, {{ genre.id }})">
 						<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
 					</a>
-					<a class="btn" onclick="$.get('/rate?id={{ song.id }}&rate=1&genre={{ genre.id }}', function(data) { $('table').html(data) });">
+					<a class="btn" onclick="rateSong({{ song.id }}, 1, {{ genre.id }})">
 						<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
 					</a>
 				</div>
