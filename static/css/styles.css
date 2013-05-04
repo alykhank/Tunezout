@@ -20,14 +20,21 @@ body {
 	margin: 0;
 }
 
+.hero-unit a {
+	text-decoration: none;
+}
+
 .hero-unit h1 {
 	font-size: 5em;
 	color: white;
 	font-weight: lighter;
+	-webkit-transition: color .25s ease-in;
+	-moz-transition: color .25s ease-in;
+	transition: color .25s ease-in;
 }
 
-.highlight {
-	color: green;
+.hero-unit h1:hover {
+	color: #468847;
 }
 
 .hero-unit p {
