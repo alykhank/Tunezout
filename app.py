@@ -6,8 +6,11 @@ from models import app, db, Song, Genre
 @app.route('/')
 def index():
 	genres = Genre.query.order_by(Genre.name.asc()).all()
-	genre = { 'id': 0, 'name': 'All' }
+	genre = None
 	songs = Song.query.order_by(Song.score.desc()).all()
+	return render_template('index.html', genres=genres, genre=genre, songs=songs)
+
+def index(genres, genre, songs):
 	return render_template('index.html', genres=genres, genre=genre, songs=songs)
 
 @app.route('/songs')
@@ -15,12 +18,12 @@ def songs():
 	genreFilter = request.args.get('Genre', 0, type=int)
 	genres = Genre.query.order_by(Genre.name.asc()).all()
 	if genreFilter and 0 < genreFilter and genreFilter <= len(genres):
-		genre = genres[genreFilter - 1].name
-		songs = Song.query.filter(Song.genre == genre).order_by(Song.score.desc())
+		genre = Genre.query.filter(Genre.id == genreFilter).first()
+		songs = Song.query.filter(Song.genre == genre.name).order_by(Song.score.desc()).all()
 	else:
-		genre = 'All'
-		songs = Song.query.order_by(Song.score.desc())
-	return jsonify(genre=genre, songs=songs)
+		genre = None
+		songs = Song.query.order_by(Song.score.desc()).all()
+	return index(genres, genre, songs)
 
 @app.route('/submit')
 def submit():
