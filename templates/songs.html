@@ -42,10 +42,10 @@
 				<span class="badge badge-inverse">{{ song.score }}</span>
 				&nbsp;
 				<div class="btn-group">
-					<a class="btn" onclick="rateSong({{ song.id }}, 2, {{ genre.id }})">
+					<a class="btn" onclick="rateSong({{ song.id }}, 2, {{ genre.id if genre else 0 }})">
 						<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
 					</a>
-					<a class="btn" onclick="rateSong({{ song.id }}, 1, {{ genre.id }})">
+					<a class="btn" onclick="rateSong({{ song.id }}, 1, {{ genre.id  if genre else 0}})">
 						<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
 					</a>
 				</div>
