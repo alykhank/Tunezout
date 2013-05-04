@@ -56,14 +56,14 @@
 						<legend>Genres</legend>
 						<a class="btn btn-inverse btn-large btn-block" onclick="$GENRE=0; updateSongs();">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for genre in genres %}
-						<a class="btn btn-inverse btn-large btn-block" onclick="$GENRE={{ loop.index }}; updateSongs();">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" onclick="$GENRE={{ genre.id }}; updateSongs();">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
 			</div>
 			<div class="well span8">
 				<table class="table">
-					<caption></caption>
+					<caption>{{ genre.name }}</caption>
 					<thead>
 						<tr>
 							<th>Rank</th>
@@ -75,8 +75,35 @@
 						</tr>
 					</thead>
 					<tbody>
+						{% for song in songs %}
+						<tr>
+							<td>{{ loop.index }}</td>
+							<td>{{ song.title }}</td>
+							<td>{{ song.artist }}</td>
+							{% if song.year != 1 %}
+								<td>{{ song.year }}</td>
+							{% else %}
+								<td>&ndash;</td>
+							{% endif %}
+							{% if genre.name == 'All' %}
+								<td>{{ song.genre }}</td>
+							{% endif %}
+							<td>
+								<span class="badge badge-inverse">{{ song.score }}</span>
+								&nbsp;
+								<div class="btn-group">
+									<a class="btn" onclick="rate({{ song.id }}, 2)">
+										<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
+									</a>
+									<a class="btn" onclick="rate({{ song.id }}, 1)">
+										<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
+									</a>
+								</div>
+							</td>
+						</tr>
+						{% endfor %}
 					</tbody>
-					<script>updateSongs();</script>
+					<!-- <script>updateSongs();</script> -->
 				</table>
 			</div>
 		</div>
