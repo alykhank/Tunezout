@@ -15,7 +15,7 @@ def index(genres, genre, songs):
 
 @app.route('/songs')
 def songs():
-	genreFilter = request.args.get('Genre', 0, type=int)
+	genreFilter = request.args.get('genre', 0, type=int)
 	genres = Genre.query.order_by(Genre.name.asc()).all()
 	if genreFilter and 0 < genreFilter and genreFilter <= len(genres):
 		genre = Genre.query.filter(Genre.id == genreFilter).first()
@@ -29,17 +29,16 @@ def songs():
 def submit():
 	title = request.args.get('Song Title', '', type=str)
 	artist = request.args.get('Artist', '', type=str)
-	year = request.args.get('Year', 1, type=int)
+	year = request.args.get('Year', 0, type=int)
 	genre = request.args.get('Genre', 'Other', type=str)
-	queriedGenres = Genre.query.order_by(Genre.name.asc()).all()
-	genres = []
-	for item in queriedGenres:
-		genres.append(item.name)
-	if title and artist and year and genre and (genre in genres):
-		song = Song(title, artist, year, genre, 0, 0, 0)
+	genreMatch = Genre.query.filter(Genre.name == genre).first()
+	if title and artist and genreMatch:
+		song = Song(title, artist, year, genreMatch, 0, 0, 0)
 		db.session.add(song)
 		db.session.commit()
-	return redirect(url_for('index'))
+	genres = Genre.query.order_by(Genre.name.asc()).all()
+	songs = Song.query.order_by(Song.score.desc()).all()
+	return index(genres, None, songs)
 
 @app.route('/rate')
 def rate():

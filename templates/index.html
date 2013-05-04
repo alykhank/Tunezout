@@ -35,7 +35,7 @@
 						<legend>Add a Song</legend>
 						<input type="text" name="Song Title" placeholder="Song Title" required class="input-block-level">
 						<input type="text" name="Artist" placeholder="Artist" required class="input-block-level">
-						<input type="number" name="Year" placeholder="Year" min="1" required class="input-block-level">
+						<input type="number" name="Year" placeholder="Year" min="0" required class="input-block-level">
 						<label>Genre</label>
 						<select name="Genre" class="input-block-level">
 							{% for genre in genres %}
@@ -52,9 +52,9 @@
 				<form class="well">
 					<fieldset>
 						<legend>Genres</legend>
-						<a class="btn btn-inverse btn-large btn-block" href="/songs?Genre=0">All <i class="icon-arrow-right icon-white"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" href="/songs?genre=0">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for genre in genres %}
-						<a class="btn btn-inverse btn-large btn-block" href="/songs?Genre={{ genre.id }}">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" href="/songs?genre={{ genre.id }}">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
@@ -82,7 +82,7 @@
 							<td>{{ loop.index }}</td>
 							<td>{{ song.title }}</td>
 							<td>{{ song.artist }}</td>
-							{% if song.year != 1 %}
+							{% if song.year %}
 								<td>{{ song.year }}</td>
 							{% else %}
 								<td>&ndash;</td>
