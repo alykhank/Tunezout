@@ -4,12 +4,10 @@ from flask import Flask, render_template, request, redirect, url_for, jsonify
 from models import app, db, Song, Genre
 
 @app.route('/')
-def index():
-	genreFilter = request.args.get('genre', 0, type=int)
-	genre = Genre.query.filter(Genre.id == genreFilter).first()
-	return index(genre)
-
-def index(genre):
+def index(genre=None):
+	if not genre:
+		genreFilter = request.args.get('genre', 0, type=int)
+		genre = Genre.query.filter(Genre.id == genreFilter).first()
 	genres = Genre.query.order_by(Genre.name.asc()).all()
 	if genre:
 		songs = Song.query.filter(Song.genre == genre).order_by(Song.score.desc()).all()
