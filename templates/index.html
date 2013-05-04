@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='bootstrap/css/bootstrap-responsive.min.css') }}">
 	<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+	<script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 	<script src="{{ url_for('static', filename='bootstrap/js/bootstrap.min.js') }}"></script>
 	<link rel="icon" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
 	<link rel="apple-touch-icon-precomposed" type="image/png" href="{{ url_for('static', filename='img/icon.png') }}">
@@ -52,9 +53,9 @@
 				<form class="well">
 					<fieldset>
 						<legend>Genres</legend>
-						<a id="genre0" class="btn btn-danger btn-large btn-block genre" onclick="$.get('/songs', function(data) { $('table').html(data); $('.genre').removeClass('btn-danger').addClass('btn-inverse'); $('#genre0').removeClass('btn-inverse').addClass('btn-danger'); });">All <i class="icon-arrow-right icon-white"></i></a>
+						<a id="genre0" class="btn btn-danger btn-large btn-block genre" onclick="switchGenre(0)">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for genre in genres %}
-						<a id="genre{{ genre.id }}" class="btn btn-inverse btn-large btn-block genre" onclick="$.get('/songs?genre={{ genre.id }}', function(data) { $('table').html(data); $('.genre').removeClass('btn-danger').addClass('btn-inverse'); $('#genre{{ genre.id }}').removeClass('btn-inverse').addClass('btn-danger'); });">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
+						<a id="genre{{ genre.id }}" class="btn btn-inverse btn-large btn-block genre" onclick="switchGenre({{ genre.id }})">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
