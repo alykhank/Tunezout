@@ -52,9 +52,9 @@
 				<form class="well">
 					<fieldset>
 						<legend>Genres</legend>
-						<a class="btn btn-inverse btn-large btn-block" href="/songs?genre=0">All <i class="icon-arrow-right icon-white"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" href="/?genre=0">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for genre in genres %}
-						<a class="btn btn-inverse btn-large btn-block" href="/songs?genre={{ genre.id }}">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
+						<a class="btn btn-inverse btn-large btn-block" href="/?genre={{ genre.id }}">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>

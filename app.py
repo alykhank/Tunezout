@@ -5,25 +5,17 @@ from models import app, db, Song, Genre
 
 @app.route('/')
 def index():
-	genre = None
-	songs = Song.query.order_by(Song.score.desc()).all()
-	return index('index.html', genre=genre, songs=songs)
-
-def index(genre, songs):
-	genres = Genre.query.order_by(Genre.name.asc()).all()
-	return render_template('index.html', genres=genres, genre=genre, songs=songs)
-
-@app.route('/songs')
-def songs():
 	genreFilter = request.args.get('genre', 0, type=int)
+	genre = Genre.query.filter(Genre.id == genreFilter).first()
+	return index(genre)
+
+def index(genre):
 	genres = Genre.query.order_by(Genre.name.asc()).all()
-	if genreFilter and 0 < genreFilter and genreFilter <= len(genres):
-		genre = Genre.query.filter(Genre.id == genreFilter).first()
+	if genre:
 		songs = Song.query.filter(Song.genre == genre).order_by(Song.score.desc()).all()
 	else:
-		genre = None
 		songs = Song.query.order_by(Song.score.desc()).all()
-	return index(genre, songs)
+	return render_template('index.html', genres=genres, genre=genre, songs=songs)
 
 @app.route('/submit')
 def submit():
@@ -36,8 +28,7 @@ def submit():
 		song = Song(title, artist, year, genreMatch, 0, 0, 0)
 		db.session.add(song)
 		db.session.commit()
-	songs = Song.query.order_by(Song.score.desc()).all()
-	return index(None, songs)
+	return index(None)
 
 @app.route('/rate')
 def rate():
