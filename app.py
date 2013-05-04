@@ -32,16 +32,17 @@ def submit():
 
 @app.route('/rate')
 def rate():
-	id = request.args.get('ID', 0, type=int)
-	rate = request.args.get('Rate', 0, type=int)
-	if id and rate:
-		if rate == 1:
-			Song.query.filter(Song.id == id).update({'down':Song.down+1, 'score':Song.score-1})
-			db.session.commit()
-		elif rate == 2:
-			Song.query.filter(Song.id == id).update({'up':Song.up+1, 'score':Song.score+1})
-			db.session.commit()
-	return redirect(url_for('index'))
+	id = request.args.get('id', 0, type=int)
+	rate = request.args.get('rate', 0, type=int)
+	if rate is 1:
+		Song.query.filter(Song.id == id).update({'down':Song.down+1, 'score':Song.score-1})
+		db.session.commit()
+	elif rate is 2:
+		Song.query.filter(Song.id == id).update({'up':Song.up+1, 'score':Song.score+1})
+		db.session.commit()
+	genreFilter = request.args.get('genre', 0, type=int)
+	genre = Genre.query.filter(Genre.id == genreFilter).first()
+	return index(genre)
 
 if __name__ == "__main__":
 	# Bind to PORT if defined, otherwise default to 5000.
