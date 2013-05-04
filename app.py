@@ -5,12 +5,12 @@ from models import app, db, Song, Genre
 
 @app.route('/')
 def index():
-	genres = Genre.query.order_by(Genre.name.asc()).all()
 	genre = None
 	songs = Song.query.order_by(Song.score.desc()).all()
-	return render_template('index.html', genres=genres, genre=genre, songs=songs)
+	return index('index.html', genre=genre, songs=songs)
 
-def index(genres, genre, songs):
+def index(genre, songs):
+	genres = Genre.query.order_by(Genre.name.asc()).all()
 	return render_template('index.html', genres=genres, genre=genre, songs=songs)
 
 @app.route('/songs')
@@ -23,22 +23,21 @@ def songs():
 	else:
 		genre = None
 		songs = Song.query.order_by(Song.score.desc()).all()
-	return index(genres, genre, songs)
+	return index(genre, songs)
 
 @app.route('/submit')
 def submit():
-	title = request.args.get('Song Title', '', type=str)
-	artist = request.args.get('Artist', '', type=str)
-	year = request.args.get('Year', 0, type=int)
-	genre = request.args.get('Genre', 'Other', type=str)
+	title = request.args.get('title', '', type=str)
+	artist = request.args.get('artist', '', type=str)
+	year = request.args.get('year', 0, type=int)
+	genre = request.args.get('genre', 'Other', type=str)
 	genreMatch = Genre.query.filter(Genre.name == genre).first()
 	if title and artist and genreMatch:
 		song = Song(title, artist, year, genreMatch, 0, 0, 0)
 		db.session.add(song)
 		db.session.commit()
-	genres = Genre.query.order_by(Genre.name.asc()).all()
 	songs = Song.query.order_by(Song.score.desc()).all()
-	return index(genres, None, songs)
+	return index(None, songs)
 
 @app.route('/rate')
 def rate():

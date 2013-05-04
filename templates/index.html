@@ -33,11 +33,11 @@
 				<form class="well">
 					<fieldset>
 						<legend>Add a Song</legend>
-						<input type="text" name="Song Title" placeholder="Song Title" required class="input-block-level">
-						<input type="text" name="Artist" placeholder="Artist" required class="input-block-level">
-						<input type="number" name="Year" placeholder="Year" min="0" required class="input-block-level">
+						<input type="text" name="title" placeholder="Title" required class="input-block-level">
+						<input type="text" name="artist" placeholder="Artist" required class="input-block-level">
+						<input type="number" name="year" placeholder="Year" min="0" required class="input-block-level">
 						<label>Genre</label>
-						<select name="Genre" class="input-block-level">
+						<select name="genre" class="input-block-level">
 							{% for genre in genres %}
 								{% if genre.name == 'Hip-Hop/Rap' %}
 								<option selected>{{ genre.name }}</option>
