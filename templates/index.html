@@ -52,9 +52,9 @@
 				<form class="well">
 					<fieldset>
 						<legend>Genres</legend>
-						<a class="btn btn-inverse btn-large btn-block" onclick="$.get('/songs', function(data) { $('table').html(data) });">All <i class="icon-arrow-right icon-white"></i></a>
+						<a id="genre0" class="btn btn-danger btn-large btn-block genre" onclick="$.get('/songs', function(data) { $('table').html(data); $('.genre').removeClass('btn-danger').addClass('btn-inverse'); $('#genre0').removeClass('btn-inverse').addClass('btn-danger'); });">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for genre in genres %}
-						<a class="btn btn-inverse btn-large btn-block" onclick="$.get('/songs?genre={{ genre.id }}', function(data) { $('table').html(data) });">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
+						<a id="genre{{ genre.id }}" class="btn btn-inverse btn-large btn-block genre" onclick="$.get('/songs?genre={{ genre.id }}', function(data) { $('table').html(data); $('.genre').removeClass('btn-danger').addClass('btn-inverse'); $('#genre{{ genre.id }}').removeClass('btn-inverse').addClass('btn-danger'); });">{{ genre.name }} <i class="icon-arrow-right icon-white"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
