@@ -19,7 +19,7 @@ def songs():
 	genres = Genre.query.order_by(Genre.name.asc()).all()
 	if genreFilter and 0 < genreFilter and genreFilter <= len(genres):
 		genre = Genre.query.filter(Genre.id == genreFilter).first()
-		songs = Song.query.filter(Song.genre == genre.name).order_by(Song.score.desc()).all()
+		songs = Song.query.filter(Song.genre == genre).order_by(Song.score.desc()).all()
 	else:
 		genre = None
 		songs = Song.query.order_by(Song.score.desc()).all()
