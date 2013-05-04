@@ -24,7 +24,7 @@ def submit():
 	year = request.args.get('year', 0, type=int)
 	genre = request.args.get('genre', 'Other', type=str)
 	genreMatch = Genre.query.filter(Genre.name == genre).first()
-	if title and artist and genreMatch:
+	if genreMatch:
 		song = Song(title, artist, year, genreMatch, 0, 0, 0)
 		db.session.add(song)
 		db.session.commit()
