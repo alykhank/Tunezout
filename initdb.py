@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 from models import db, Song, Genre
 
-genres = (Genre('Country'), Genre('Dance/Electronic'), Genre('Hip-Hop/Rap'), Genre('House'), Genre('Jazz'), Genre('R&B'), Genre('Rock'), Genre('Other'))
+genres = (Genre('Country'), Genre('Dance'), Genre('Dubstep'), Genre('Electronica'), Genre('Hip-Hop/Rap'), Genre('House'), Genre('Jazz'), Genre('Pop'), Genre('R&B'), Genre('Rock'), Genre('Other'))
 
 for genre in genres:
 	db.session.add(genre)
