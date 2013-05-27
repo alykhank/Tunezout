@@ -10,7 +10,9 @@
 			<th>Title</th>
 			<th>Artist</th>
 			<th>Year</th>
+			{% if not genre %}
 			<th>Genre</th>
+			{% endif %}
 			<th>Rating</th>
 		</tr>
 	</thead>
@@ -36,7 +38,9 @@
 				<td>&ndash;</td>
 			{% endif %}
 
+			{% if not genre %}
 			<td>{{ song.genre.name }}</td>
+			{% endif %}
 
 			<td>
 				<!-- <span class="badge badge-inverse">{{ song.score }}</span> -->
