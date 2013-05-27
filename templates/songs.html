@@ -39,7 +39,7 @@
 			<td>{{ song.genre.name }}</td>
 
 			<td>
-				<span class="badge badge-inverse">{{ song.score }}</span>
+				<!-- <span class="badge badge-inverse">{{ song.score }}</span> -->
 				&nbsp;
 				<div class="btn-group">
 					<a class="btn" onclick="rateSong({{ song.id }}, 2, {{ genre.id if genre else 0 }})">
