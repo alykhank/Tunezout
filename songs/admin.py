@@ -9,7 +9,7 @@ class GenreAdmin(admin.ModelAdmin):
 	inlines = [SongInline]
 
 class SongAdmin(admin.ModelAdmin):
-	list_display = ('title', 'artist', 'year', 'genre', 'up', 'down', 'score')
+	list_display = ('title', 'artist', 'year', 'genre', 'up', 'down', 'score', 'approved')
 	search_fields = ['title', 'artist', 'year']
 	list_filter = ['genre']
 	date_hierarchy = 'year'
