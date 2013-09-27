@@ -30,25 +30,33 @@
 		</div>
 		<div class="row">
 			<div class="span3">
-				<!-- <form class="well"> -->
-				<!-- 	<fieldset> -->
-				<!-- 		<legend>Add Song</legend> -->
-				<!-- 		<input type="text" name="title" placeholder="Title" required class="input-block-level"> -->
-				<!-- 		<input type="text" name="artist" placeholder="Artist" required class="input-block-level"> -->
-				<!-- 		<input type="number" name="year" placeholder="Year" min="0" required class="input-block-level"> -->
-				<!-- 		<label>Genre</label> -->
-				<!-- 		<select name="genre" class="input-block-level"> -->
-				<!-- 			{% for genre in genres %} -->
-				<!-- 				{% if genre.name == 'Hip-Hop/Rap' %} -->
-				<!-- 				<option selected>{{ genre.name }}</option> -->
-				<!-- 				{% else %} -->
-				<!-- 				<option>{{ genre.name }}</option> -->
-				<!-- 				{% endif %} -->
-				<!-- 			{% endfor %} -->
-				<!-- 		</select> -->
-				<!-- 		<button type="submit" formaction="submit" onclick="mixpanel.track('Submit Song')" class="btn btn-inverse btn-large btn-block">Submit</button> -->
-				<!-- 	</fieldset> -->
-				<!-- </form> -->
+				<form action="{% url 'songs:submit' %}" method="post" class="well">
+					{% csrf_token %}
+					<fieldset>
+						<legend>Add Song</legend>
+						{% if error_message %}
+							<script>$(".alert").alert();</script>
+							<div class="alert">
+								{{ error_message }}
+								<button type="button" class="close" data-dismiss="alert">&times;</button>
+							</div>
+						{% endif %}
+						<input type="text" name="title" placeholder="Title" required class="input-block-level">
+						<input type="text" name="artist" placeholder="Artist" required class="input-block-level">
+						<input type="number" name="year" placeholder="Year" min="0" required class="input-block-level">
+						<label>Genre</label>
+						<select name="genre" class="input-block-level">
+							{% for genre in genre_list %}
+								{% if genre.name == 'Hip-Hop/Rap' %}
+								<option value="{{ genre.id }}" selected>{{ genre.name }}</option>
+								{% else %}
+								<option value="{{ genre.id }}">{{ genre.name }}</option>
+								{% endif %}
+							{% endfor %}
+						</select>
+						<button type="submit" onclick="mixpanel.track('Submit Song')" class="btn btn-inverse btn-large btn-block">Submit</button>
+					</fieldset>
+				</form>
 				<!-- <form class="well"> -->
 				<!-- 	<fieldset> -->
 				<!-- 		<legend>Genres</legend> -->
