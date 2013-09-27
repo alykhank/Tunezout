@@ -8,3 +8,7 @@ class IndexView(generic.ListView):
 
 	def get_queryset(self):
 		return Song.objects.order_by('-score')
+
+class DetailView(generic.DetailView):
+	model = Song
+	template_name = 'songs/detail.html'
