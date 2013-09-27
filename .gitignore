@@ -1,9 +1,10 @@
 *.py[cod]
-.env
 
-#Exclude Virtualenv artifacts
+#Virtualenv
 venv
 
-# Standard ignores
-*.DS_Store
-*.swp
+#Django
+staticfiles
+
+#Heroku
+.env
