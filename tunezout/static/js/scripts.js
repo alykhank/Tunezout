@@ -1,12 +1,10 @@
 function switchGenre(id) {
-	$.get('/songs?genre=' + id, function(data) {
-		$('table').html(data);
+  var url = (id !== '0') ? '/genre/'+id+'/' : '/';
+	$('table').load(url + ' table', function() {
 		$('.genre').removeClass('btn-danger').addClass('btn-inverse');
 		$('#genre' + id).removeClass('btn-inverse').addClass('btn-danger');
 	});
 }
 function rateSong(song, rating, genre) {
-	$.get('/rate?id=' + song + '&rate=' + rating + '&genre=' + genre, function(data) {
-		$('table').html(data)
-	});
+	$('table').load('/rate/' + song + '/' + rating + '/' + genre + ' table');
 }

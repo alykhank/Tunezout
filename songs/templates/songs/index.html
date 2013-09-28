@@ -72,9 +72,9 @@
 				<form class="well">
 					<fieldset>
 						<legend>Genres</legend>
-						<a id="genre0" class="btn {% if not genre %} btn-danger {% else %} btn-inverse {% endif %} btn-large btn-block genre" href="{% url 'songs:index' %}" onclick="mixpanel.track('Switch Genre', {'Genre Name': 'All'})">All <i class="icon-arrow-right icon-white"></i></a>
+						<a id="genre0" class="btn {% if not genre %} btn-danger {% else %} btn-inverse {% endif %} btn-large btn-block genre" onclick="switchGenre('0');mixpanel.track('Switch Genre', {'Genre Name': 'All'})">All <i class="icon-arrow-right icon-white"></i></a>
 						{% for g in genre_list %}
-						<a id="genre{{ g.id }}" class="btn {% if g == genre %} btn-danger {% else %} btn-inverse {% endif %} btn-large btn-block genre" href="{% url 'songs:genre' g.id %}" onclick="mixpanel.track('Switch Genre', {'Genre Name': '{{ g.name }}'})">{{ g.name }} <i class="icon-arrow-right icon-white"></i></a>
+						<a id="genre{{ g.id }}" class="btn {% if g == genre %} btn-danger {% else %} btn-inverse {% endif %} btn-large btn-block genre" onclick="switchGenre('{{ g.id }}');mixpanel.track('Switch Genre', {'Genre Name': '{{ g.name }}'})">{{ g.name }} <i class="icon-arrow-right icon-white"></i></a>
 						{% endfor %}
 					</fieldset>
 				</form>
