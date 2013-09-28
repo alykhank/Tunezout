@@ -8,4 +8,5 @@ urlpatterns = patterns('',
 	url(r'^genre/(?P<genre>\d+)/$', views.GenreView.as_view(), name='genre'),
 	url(r'^year/(?P<year>\d+)/$', views.YearView.as_view(), name='year'),
 	url(r'^submit/$', views.submit, name='submit'),
+	url(r'^rate/(?P<pk>\d+)/(?P<rating>\d)/(?P<genre>\d+)/$', views.rate, name='rate'),
 )

@@ -78,3 +78,35 @@ def submit(request):
 		# with POST data. This prevents data from being posted twice if a
 		# user hits the Back button.
 		return HttpResponseRedirect(reverse('songs:index'))
+
+def rate(request, pk, rating, genre):
+	genre_list = Genre.objects.all().order_by('-name')
+	try:
+		song = get_object_or_404(Song, pk=pk)
+	except (KeyError, Song.DoesNotExist):
+		# Redisplay the song submission form.
+		if genre == '0':
+			return render(request, 'songs/index.html', {
+				'genre_list': genre_list,
+				'error_message': "Your rating was invalid.",
+			})
+		else:
+			return render(request, 'songs/index.html', {
+				'genre': Genre.objects.get(id=genre),
+				'genre_list': genre_list,
+				'error_message': "Your rating was invalid.",
+			})
+	else:
+		if rating == '1':
+			song.down += 1
+		elif rating == '2':
+			song.up += 1
+		song.score = song.up - song.down
+		song.save()
+		# Always return an HttpResponseRedirect after successfully dealing
+		# with POST data. This prevents data from being posted twice if a
+		# user hits the Back button.
+		if genre == '0':
+			return HttpResponseRedirect(reverse('songs:index'))
+		else:
+			return HttpResponseRedirect(reverse('songs:genre', kwargs={'genre': genre}))
