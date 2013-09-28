@@ -7,7 +7,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'tunezout.views.home', name='home'),
-    url(r'^songs/', include('songs.urls', namespace='songs')),
+    url(r'^', include('songs.urls', namespace='songs')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

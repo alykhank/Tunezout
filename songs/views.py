@@ -9,7 +9,7 @@ class IndexView(generic.ListView):
 	template_name = 'songs/index.html'
 
 	def get_queryset(self):
-		return Song.objects.order_by('-score').order_by('title')
+		return Song.objects.order_by('-score', 'title')
 
 	def get_context_data(self, **kwargs):
 		# Call the base implementation first to get a context
@@ -27,7 +27,7 @@ class GenreView(generic.ListView):
 
 	def get_queryset(self):
 		genre = Genre.objects.filter(id=self.kwargs['genre'])
-		return Song.objects.filter(genre=genre).order_by('-score').order_by('title')
+		return Song.objects.filter(genre=genre).order_by('-score', 'title')
 
 	def get_context_data(self, **kwargs):
 		# Call the base implementation first to get a context
@@ -42,7 +42,7 @@ class YearView(generic.ListView):
 
 	def get_queryset(self):
 		year = self.kwargs['year']
-		return Song.objects.filter(year__year=year).order_by('-score').order_by('title')
+		return Song.objects.filter(year__year=year).order_by('-score', 'title')
 
 	def get_context_data(self, **kwargs):
 		# Call the base implementation first to get a context
