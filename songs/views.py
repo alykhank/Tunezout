@@ -15,7 +15,7 @@ class IndexView(generic.ListView):
 		# Call the base implementation first to get a context
 		context = super(IndexView, self).get_context_data(**kwargs)
 		# Add in a QuerySet of all the genres
-		context['genre_list'] = Genre.objects.all().order_by('-name')
+		context['genre_list'] = Genre.objects.all().order_by('name')
 		return context
 
 class DetailView(generic.DetailView):
@@ -33,7 +33,7 @@ class GenreView(generic.ListView):
 		# Call the base implementation first to get a context
 		context = super(GenreView, self).get_context_data(**kwargs)
 		# Add in a QuerySet of all the genres
-		context['genre_list'] = Genre.objects.all().order_by('-name')
+		context['genre_list'] = Genre.objects.all().order_by('name')
 		context['genre'] = Genre.objects.get(id=self.kwargs['genre'])
 		return context
 
@@ -48,11 +48,11 @@ class YearView(generic.ListView):
 		# Call the base implementation first to get a context
 		context = super(YearView, self).get_context_data(**kwargs)
 		# Add in a QuerySet of all the genres
-		context['genre_list'] = Genre.objects.all().order_by('-name')
+		context['genre_list'] = Genre.objects.all().order_by('name')
 		return context
 
 def submit(request):
-	genre_list = Genre.objects.all().order_by('-name')
+	genre_list = Genre.objects.all().order_by('name')
 	try:
 		title = request.POST['title']
 		artist = request.POST['artist']
@@ -80,7 +80,7 @@ def submit(request):
 		return HttpResponseRedirect(reverse('songs:index'))
 
 def rate(request, pk, rating, genre):
-	genre_list = Genre.objects.all().order_by('-name')
+	genre_list = Genre.objects.all().order_by('name')
 	try:
 		song = get_object_or_404(Song, pk=pk)
 	except (KeyError, Song.DoesNotExist):
