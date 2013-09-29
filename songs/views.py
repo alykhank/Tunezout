@@ -65,15 +65,8 @@ def submit(request):
 			'error_message': "Your submission was invalid.",
 		})
 	else:
-		try:
-			s = Song(title=title, artist=artist, year=year, genre=genre)
-			s.save()
-		except (ValueError):
-			# Redisplay the song submission form.
-			return render(request, 'songs/index.html', {
-				'genre_list': genre_list,
-				'error_message': "Your submission was invalid.",
-			})
+		s = Song(title=title, artist=artist, year=year, genre=genre)
+		s.save()
 		# Always return an HttpResponseRedirect after successfully dealing
 		# with POST data. This prevents data from being posted twice if a
 		# user hits the Back button.
