@@ -31,18 +31,18 @@
 </head>
 <body>
 	<div class="container">
-		<div class="hero-unit row">
-			<div class="span6">
+		<div class="jumbotron row">
+			<div class="col-md-6">
 				<br>
 				<a href="/"><h1>Tune<span class="text-success">z</span>out</h1></a>
 			</div>
-			<div class="span5">
-				<img src="{{ STATIC_URL }}img/logo.jpg">
+			<div class="col-md-5">
+				<img src="{{ STATIC_URL }}img/logo.jpg" alt="Tunezout Logo">
 			</div>
 		</div>
 		<div class="row">
-			<div class="span3">
-				<form action="{% url 'songs:submit' %}" method="post" class="well">
+			<div class="col-sm-3">
+				<form action="{% url 'songs:submit' %}" method="post" role="form" class="well">
 					{% csrf_token %}
 					<fieldset>
 						<legend>Add Song</legend>
@@ -79,7 +79,7 @@
 					</fieldset>
 				</form>
 			</div>
-			<div class="well span8">
+			<div class="panel panel-default col-sm-9">
 				{% include 'songs/songs.html' %}
 			</div>
 		</div>
