@@ -14,17 +14,18 @@ body {
 	background-color: black;
 }
 
-.hero-unit {
+.jumbotron {
 	background-color: black;
 	padding: 0 !important;
 	margin: 0;
 }
 
-.hero-unit a {
+.jumbotron a {
 	text-decoration: none;
 }
 
-.hero-unit h1 {
+.jumbotron h1 {
+	font-family: 'Bebas Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 8em;
 	color: white;
 	font-weight: lighter;
@@ -33,20 +34,16 @@ body {
 	transition: color .25s ease-in;
 }
 
-.hero-unit h1:hover {
+.jumbotron h1:hover {
 	color: #468847;
 }
 
-.hero-unit p {
+.jumbotron p {
 	font-size: 2.4em;
 }
 
 form {
 	text-align: center;
-}
-
-input, select, .btn {
-	font-family: 'Bebas Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 table caption {

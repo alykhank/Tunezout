@@ -1,4 +1,5 @@
-<table class="table table-condensed">
+<table class="table table-hover">
+	<br>
 	{% if genre %}
 		<caption>{{ genre.name }}</caption>
 	{% else %}
@@ -44,15 +45,15 @@
 			{% endif %}
 
 			<td>
-				<span class="badge badge-inverse">{{ song.score }}</span>
-				&nbsp;
+				<!-- <span class="badge">{{ song.score }}</span> -->
+				<!-- &nbsp; -->
 				<div class="btn-group">
-					<a class="btn" onclick="rateSong({{ song.id }}, 2, {{ genre.id|default:'0' }})">
-						<span class="text-success">{{ song.up }}</span> <i class="icon-thumbs-up"></i>
-					</a>
-					<a class="btn" onclick="rateSong({{ song.id }}, 1, {{ genre.id|default:'0' }})">
-						<span class="text-error">{{ song.down }}</span> <i class="icon-thumbs-down"></i>
-					</a>
+					<button type="button" title="Like" data-toggle="tooltip" data-container="body" class="btn btn-default hasTooltip" onclick="$(this).tooltip('destroy');rateSong({{ song.id }}, 2, {{ genre.id|default:'0' }});">
+						<span class="text-success">{{ song.up }}</span>&nbsp;<span class="glyphicon glyphicon-thumbs-up"></span>
+					</button>
+					<button type="button" title="Dislike" data-toggle="tooltip" data-container="body" class="btn btn-default hasTooltip" onclick="$(this).tooltip('destroy');rateSong({{ song.id }}, 1, {{ genre.id|default:'0' }});">
+						<span class="text-danger">{{ song.down }}</span>&nbsp;<span class="glyphicon glyphicon-thumbs-down"></span>
+					</button>
 				</div>
 			</td>
 			</tr>

@@ -35,6 +35,7 @@
 			<div class="col-md-6">
 				<br>
 				<a href="/"><h1>Tune<span class="text-success">z</span>out</h1></a>
+				<p class="lead text-danger">Discover popular music.</p>
 			</div>
 			<div class="col-md-5">
 				<img src="{{ STATIC_URL }}img/logo.jpg" alt="Tunezout Logo">
@@ -45,36 +46,48 @@
 				<form action="{% url 'songs:submit' %}" method="post" role="form" class="well">
 					{% csrf_token %}
 					<fieldset>
-						<legend>Add Song</legend>
+						<div class="form-group">
+							<legend>Add Song</legend>
+						</div>
 						{% if error_message %}
-							<script>$(".alert").alert();</script>
-							<div class="alert">
+							<div class="alert alert-danger alert-dismissable fade in">
+								<button type="button" class="close" aria-hidden="true" data-dismiss="alert">&times;</button>
 								{{ error_message }}
-								<button type="button" class="close" data-dismiss="alert">&times;</button>
 							</div>
 						{% endif %}
-						<input type="text" name="title" placeholder="Title" required class="input-block-level">
-						<input type="text" name="artist" placeholder="Artist" required class="input-block-level">
-						<input type="number" name="year" placeholder="Year" min="0" required class="input-block-level">
-						<label>Genre</label>
-						<select name="genre" class="input-block-level">
-							{% for genre in genre_list %}
-								{% if genre.name == 'Hip-Hop/Rap' %}
-								<option value="{{ genre.id }}" selected>{{ genre.name }}</option>
-								{% else %}
-								<option value="{{ genre.id }}">{{ genre.name }}</option>
-								{% endif %}
-							{% endfor %}
-						</select>
-						<button type="submit" onclick="mixpanel.track('Submit Song')" class="btn btn-inverse btn-large btn-block">Submit</button>
+						<div class="form-group">
+							<label for="songInputTitle" class="sr-only">Title</label>
+							<input type="text" name="title" placeholder="Title" id="songInputTitle" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="songInputArtist" class="sr-only">Artist</label>
+							<input type="text" name="artist" placeholder="Artist" id="songInputArtist" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="songInputYear" class="sr-only">Year</label>
+							<input type="number" name="year" placeholder="Year" min="0" id="songInputYear" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="songInputGenre">Genre</label>
+							<select name="genre" id="songInputGenre" class="form-control">
+								{% for genre in genre_list %}
+									{% if genre.name == 'Hip-Hop/Rap' %}
+									<option value="{{ genre.id }}" selected>{{ genre.name }}</option>
+									{% else %}
+									<option value="{{ genre.id }}">{{ genre.name }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+						<button type="submit" title="Request Approval" data-toggle="tooltip" data-placement="right" data-container="body" onclick="mixpanel.track('Submit Song')" class="btn btn-success btn-lg btn-block hasTooltip">Submit</button>
 					</fieldset>
 				</form>
 				<form class="well">
 					<fieldset>
 						<legend>Genres</legend>
-						<a id="genre0" class="btn {% if not genre %} btn-danger {% else %} btn-inverse {% endif %} btn-large btn-block genre" onclick="switchGenre('0');mixpanel.track('Switch Genre', {'Genre Name': 'All'})">All <i class="icon-arrow-right icon-white"></i></a>
+						<button type="button" id="genre0" class="btn {% if not genre %} btn-danger {% else %} btn-default {% endif %} btn-large btn-block genre" onclick="switchGenre('0');mixpanel.track('Switch Genre', {'Genre Name': 'All'})">All&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button>
 						{% for g in genre_list %}
-						<a id="genre{{ g.id }}" class="btn {% if g == genre %} btn-danger {% else %} btn-inverse {% endif %} btn-large btn-block genre" onclick="switchGenre('{{ g.id }}');mixpanel.track('Switch Genre', {'Genre Name': '{{ g.name }}'})">{{ g.name }} <i class="icon-arrow-right icon-white"></i></a>
+						<button type="button" id="genre{{ g.id }}" class="btn {% if g == genre %} btn-danger {% else %} btn-default {% endif %} btn-large btn-block genre" onclick="switchGenre('{{ g.id }}');mixpanel.track('Switch Genre', {'Genre Name': '{{ g.name }}'})">{{ g.name }}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button>
 						{% endfor %}
 					</fieldset>
 				</form>
@@ -84,11 +97,12 @@
 			</div>
 		</div>
 		<hr>
-		<div class="muted text-center">
+		<div class="text-muted text-center">
 			<p>&copy; 2013 Tunezout. All Rights Reserved.</p>
 			<p>Developed by <a href="http://alykhan.com" target="_blank">Alykhan Kanji</a>.</p>
 		</div>
 		<br>
 	</div>
+	<script>$('.hasTooltip').tooltip();</script>
 </body>
 </html>
