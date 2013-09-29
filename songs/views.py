@@ -58,6 +58,12 @@ def submit(request):
 		artist = request.POST['artist']
 		year = request.POST['year'] + '-01-01'
 		genre = get_object_or_404(Genre, pk=request.POST['genre'])
+		if title == '' or artist == '' or year == '':
+			return render(request, 'songs/index.html', {
+				'song_list': Song.objects.order_by('-score', 'title'),
+				'genre_list': genre_list,
+				'error_message': "Your submission was invalid.",
+			})
 	except (KeyError, Genre.DoesNotExist):
 		# Redisplay the song submission form.
 		return render(request, 'songs/index.html', {
