@@ -46,9 +46,7 @@
 				<form action="{% url 'songs:submit' %}" method="post" role="form" class="well">
 					{% csrf_token %}
 					<fieldset>
-						<div class="form-group">
-							<legend>Add Song</legend>
-						</div>
+						<legend>Add Song</legend>
 						{% if error_message %}
 							<div class="alert alert-danger alert-dismissable fade in">
 								<button type="button" class="close" aria-hidden="true" data-dismiss="alert">&times;</button>
@@ -82,7 +80,7 @@
 						<button type="submit" title="Request Approval" data-toggle="tooltip" data-placement="right" data-container="body" onclick="mixpanel.track('Submit Song')" class="btn btn-success btn-lg btn-block hasTooltip">Submit</button>
 					</fieldset>
 				</form>
-				<form class="well">
+				<form role="form" class="well">
 					<fieldset>
 						<legend>Genres</legend>
 						<button type="button" id="genre0" class="btn {% if not genre %} btn-danger {% else %} btn-default {% endif %} btn-large btn-block genre" onclick="switchGenre('0');mixpanel.track('Switch Genre', {'Genre Name': 'All'})">All&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button>
