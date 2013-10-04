@@ -5,45 +5,41 @@
 - model: songs.genre
   pk: 2
   fields:
-    name: Country
+    name: Dance
 - model: songs.genre
   pk: 3
   fields:
-    name: Dance
+    name: Dubstep
 - model: songs.genre
   pk: 4
   fields:
-    name: Dubstep
+    name: Electronica
 - model: songs.genre
   pk: 5
   fields:
-    name: Electronica
+    name: Hip-Hop/Rap
 - model: songs.genre
   pk: 6
   fields:
-    name: Hip-Hop/Rap
+    name: House
 - model: songs.genre
   pk: 7
   fields:
-    name: House
+    name: Jazz
 - model: songs.genre
   pk: 8
   fields:
-    name: Jazz
+    name: Pop
 - model: songs.genre
   pk: 9
   fields:
-    name: Pop
+    name: R&B
 - model: songs.genre
   pk: 10
   fields:
-    name: R&B
-- model: songs.genre
-  pk: 11
-  fields:
     name: Rock
 - model: songs.genre
-  pk: 12
+  pk: 11
   fields:
     name: Other
 - model: songs.song
@@ -52,200 +48,200 @@
     title: Thrift Shop
     artist: Macklemore & Ryan Lewis
     year: 2012-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 2
   fields:
     title: Can't Hold Us
     artist: Macklemore ft. Ray Dalton
     year: 2012-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 3
   fields:
     title: Inner Ninja
     artist: Classified ft. David Myles
     year: 2013-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 4
   fields:
     title: Started from the Bottom
     artist: Drake
     year: 2013-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 5
   fields:
     title: Wild for the Night
     artist: ASAP ft. Skrillex
     year: 2013-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 6
   fields:
     title: Love Me
     artist: Lil' Wayne ft. Drake & Future
     year: 2013-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 7
   fields:
     title: Ni**as in Paris
     artist: Kanye West & Jay Z
     year: 2011-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 8
   fields:
     title: Gotta Have It
     artist: Kanye West & Jay Z
     year: 2011-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 9
   fields:
     title: No Church in the Wild
     artist: Kanye West & Jay Z ft. Frank Ocean
     year: 2011-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 10
   fields:
     title: Hey Porsche
     artist: Nelly
     year: 2013-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 11
   fields:
     title: Whistle
     artist: Flo Rida
     year: 2012-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 12
   fields:
     title: The Motto
     artist: Drake
     year: 2011-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 13
   fields:
     title: Practice
     artist: Drake
     year: 2011-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 14
   fields:
     title: Make me Proud
     artist: Drake ft. Nicki Minaj
     year: 2011-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 15
   fields:
     title: Take Care
     artist: Drake ft. Rihanna
     year: 2011-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 16
   fields:
     title: Headlines
     artist: Drake
     year: 2011-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 17
   fields:
     title: Empire State of Mind
     artist: Jay Z ft. Alicia Keys
     year: 2009-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 18
   fields:
     title: Dope
     artist: Tyga ft. Rick Ross
     year: 2013-01-01
-    genre: 6
+    genre: 5
 - model: songs.song
   pk: 19
   fields:
     title: Blurred Lines
     artist: Robin Thicke ft. T.I. & Pharrell
     year: 2013-01-01
-    genre: 10
+    genre: 9
 - model: songs.song
   pk: 20
   fields:
     title: Girl on Fire
     artist: Alicia Keys
     year: 2012-01-01
-    genre: 10
+    genre: 9
 - model: songs.song
   pk: 21
   fields:
     title: DJ Got Us Fallin' In Love
     artist: Usher ft. Pitbull
     year: 2010-01-01
-    genre: 10
+    genre: 9
 - model: songs.song
   pk: 22
   fields:
     title: Scream
     artist: Usher
     year: 2012-01-01
-    genre: 10
+    genre: 9
 - model: songs.song
   pk: 23
   fields:
     title: Numb
     artist: Usher
     year: 2012-01-01
-    genre: 10
+    genre: 9
 - model: songs.song
   pk: 24
   fields:
     title: Look At Me Now
     artist: Chris Brown ft. Lil' Wayne & Busta Rhymes
     year: 2011-01-01
-    genre: 10
+    genre: 9
 - model: songs.song
   pk: 25
   fields:
     title: Brand New Day
     artist: Massari
     year: 2012-01-01
-    genre: 10
+    genre: 9
 - model: songs.song
   pk: 26
   fields:
     title: Don't Wake Me Up
     artist: Chris Brown
     year: 2012-01-01
-    genre: 10
+    genre: 9
 - model: songs.song
   pk: 27
   fields:
     title: OMG
     artist: Usher ft. will.i.am
     year: 2010-01-01
-    genre: 10
+    genre: 9
 - model: songs.song
   pk: 28
   fields:
     title: Forever
     artist: Chris Brown
     year: 2008-01-01
-    genre: 10
+    genre: 9
 - model: songs.song
   pk: 29
   fields:
     title: Super Bass
     artist: Nicki Minaj
     year: 2011-01-01
-    genre: 10
+    genre: 9
