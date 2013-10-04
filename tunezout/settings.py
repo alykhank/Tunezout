@@ -6,7 +6,7 @@ DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Alykhan Kanji', 'github@alykhan.com'),
+    ('Alykhan Kanji', 'github@alykhan.com'),
 )
 
 MANAGERS = ADMINS
