@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="application-name" content="Tunezout">
+	<meta name="viewport" content="initial-scale=1.0">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="apple-mobile-web-app-title" content="Tunezout">
+	<title>Tunezout</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" media="screen">
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-theme.min.css">
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/styles.css">
+	<script src="{{ STATIC_URL }}js/scripts.js"></script>
+	<link rel="icon" type="image/png" href="{{ STATIC_URL }}img/icon.png">
+	<link rel="apple-touch-icon-precomposed" type="image/png" href="{{ STATIC_URL }}img/icon.png">
+	<!-- start Google Analytics --><script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-41078409-1', 'tunezout.com');
+		ga('send', 'pageview');
+	</script><!-- end Google Analytics -->
+	<!-- start Mixpanel --><script type="text/javascript">(function(e,b){if(!b.__SV){var a,f,i,g;window.mixpanel=b;a=e.createElement("script");a.type="text/javascript";a.async=!0;a.src=("https:"===e.location.protocol?"https:":"http:")+'//cdn.mxpnl.com/libs/mixpanel-2.2.min.js';f=e.getElementsByTagName("script")[0];f.parentNode.insertBefore(a,f);b._i=[];b.init=function(a,e,d){function f(b,h){var a=h.split(".");2==a.length&&(b=b[a[0]],h=a[1]);b[h]=function(){b.push([h].concat(Array.prototype.slice.call(arguments,0)))}}var c=b;"undefined"!==
+	typeof d?c=b[d]=[]:d="mixpanel";c.people=c.people||[];c.toString=function(b){var a="mixpanel";"mixpanel"!==d&&(a+="."+d);b||(a+=" (stub)");return a};c.people.toString=function(){return c.toString(1)+".people (stub)"};i="disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.set_once people.increment people.append people.track_charge people.clear_charges people.delete_user".split(" ");for(g=0;g<i.length;g++)f(c,i[g]);
+	b._i.push([a,e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
+	mixpanel.init("7e6a46fb3477d2144fe571da2ba52958");</script><!-- end Mixpanel -->
+</head>
+<body>
+	<div class="container">
+		<div class="jumbotron row">
+			<div class="col-md-6">
+				<br>
+				<a href="/"><h1>Tune<span class="text-success">z</span>out</h1></a>
+				<p class="lead text-danger">Discover popular music.</p>
+			</div>
+			<div class="col-md-5">
+				<img src="{{ STATIC_URL }}img/logo.jpg" alt="Tunezout Logo">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3">
+				<form action="{% url 'songs:submit' %}" method="post" role="form" class="well">
+					{% csrf_token %}
+					<fieldset>
+						<legend>Add Song</legend>
+						{% if error_message %}
+							<div class="alert alert-danger alert-dismissable fade in">
+								<button type="button" class="close" aria-hidden="true" data-dismiss="alert">&times;</button>
+								{{ error_message }}
+							</div>
+						{% endif %}
+						<div class="form-group">
+							<label for="songInputTitle" class="sr-only">Title</label>
+							<input type="text" name="title" placeholder="Title" id="songInputTitle" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="songInputArtist" class="sr-only">Artist</label>
+							<input type="text" name="artist" placeholder="Artist" id="songInputArtist" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="songInputYear" class="sr-only">Year</label>
+							<input type="number" name="year" placeholder="Year" min="0" id="songInputYear" class="form-control" required>
+						</div>
+						<div class="form-group">
+							<label for="songInputGenre">Genre</label>
+							<select name="genre" id="songInputGenre" class="form-control">
+								{% for genre in genre_list %}
+									{% if genre.name == 'Hip-Hop/Rap' %}
+									<option value="{{ genre.id }}" selected>{{ genre.name }}</option>
+									{% else %}
+									<option value="{{ genre.id }}">{{ genre.name }}</option>
+									{% endif %}
+								{% endfor %}
+							</select>
+						</div>
+						<button type="submit" title="Request Approval" data-toggle="tooltip" data-placement="right" data-container="body" onclick="mixpanel.track('Submit Song')" class="btn btn-success btn-lg btn-block hasTooltip">Submit</button>
+					</fieldset>
+				</form>
+				<form role="form" class="well">
+					<fieldset>
+						<legend>Genres</legend>
+						<button type="button" id="genre0" class="btn {% if not genre %} btn-danger {% else %} btn-default {% endif %} btn-large btn-block genre" onclick="switchGenre('0');mixpanel.track('Switch Genre', {'Genre Name': 'All'})">All&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button>
+						{% for g in genre_list %}
+						<button type="button" id="genre{{ g.id }}" class="btn {% if g == genre %} btn-danger {% else %} btn-default {% endif %} btn-large btn-block genre" onclick="switchGenre('{{ g.id }}');mixpanel.track('Switch Genre', {'Genre Name': '{{ g.name }}'})">{{ g.name }}&nbsp;<span class="glyphicon glyphicon-arrow-right"></span></button>
+						{% endfor %}
+					</fieldset>
+				</form>
+			</div>
+			<div class="panel panel-default col-sm-9">
+				{% include 'songs/songs.html' %}
+			</div>
+		</div>
+		<hr>
+		<div class="text-muted text-center">
+			<p>&copy; 2013 Tunezout. All Rights Reserved.</p>
+			<p>Developed by <a href="http://alykhan.com" target="_blank">Alykhan Kanji</a>.</p>
+		</div>
+		<br>
+	</div>
+	<script>$('.hasTooltip').tooltip();</script>
+</body>
+</html>
