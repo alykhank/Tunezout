@@ -2,9 +2,20 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
-from django.contrib import messages
+from django.contrib import auth, messages
 
 from songs.models import Genre, Song
+
+def login(request):
+	username = request.POST.get('username', '')
+	password = request.POST.get('password', '')
+	user = auth.authenticate(username=username, password=password)
+	if user is not None and user.is_active:
+		auth.login(request, user)
+		return HttpResponseRedirect(reverse('songs:index'))
+	else:
+		messages.error(request, 'Invalid login.')
+		return HttpResponseRedirect(reverse('songs:index'))
 
 class IndexView(generic.ListView):
 	template_name = 'songs/index.html'

@@ -41,14 +41,21 @@
 			<a class="navbar-brand visible-xs" href="/">Tunezout</a>
 		</div><!-- navbar-header -->
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			{% if user.is_authenticated %}
 			<ul class="nav navbar-nav navbar-right">
-				{% if user.is_authenticated %}
 				<li class="navbar-text">{{ user }}</li>
 				<li><a href="{% url 'logout' %}?next=/">Logout</a></li>
-				{% else %}
-				<li><a href="{% url 'login' %}?next=/">Login</a></li>
-				{% endif %}
 			</ul>
+			{% else %}
+			<form method="post" action="{% url 'songs:login' %}" class="navbar-form navbar-right" role="form">
+				{% csrf_token %}
+				<div class="form-group">
+					<input type="text" name="username" placeholder="Username" class="form-control">
+					<input type="password" name="password" placeholder="Password" class="form-control">
+				</div>
+				<button type="submit" class="btn btn-info">Submit</button>
+			</form>
+			{% endif %}
 		</div><!-- navbar-collapse -->
 	</nav>
 	<div class="container">
