@@ -49,6 +49,7 @@
     artist: Macklemore & Ryan Lewis
     year: 2012-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 2
   fields:
@@ -56,6 +57,7 @@
     artist: Macklemore ft. Ray Dalton
     year: 2012-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 3
   fields:
@@ -63,6 +65,7 @@
     artist: Classified ft. David Myles
     year: 2013-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 4
   fields:
@@ -70,6 +73,7 @@
     artist: Drake
     year: 2013-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 5
   fields:
@@ -77,6 +81,7 @@
     artist: ASAP ft. Skrillex
     year: 2013-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 6
   fields:
@@ -84,6 +89,7 @@
     artist: Lil' Wayne ft. Drake & Future
     year: 2013-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 7
   fields:
@@ -91,6 +97,7 @@
     artist: Kanye West & Jay Z
     year: 2011-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 8
   fields:
@@ -98,6 +105,7 @@
     artist: Kanye West & Jay Z
     year: 2011-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 9
   fields:
@@ -105,6 +113,7 @@
     artist: Kanye West & Jay Z ft. Frank Ocean
     year: 2011-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 10
   fields:
@@ -112,6 +121,7 @@
     artist: Nelly
     year: 2013-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 11
   fields:
@@ -119,6 +129,7 @@
     artist: Flo Rida
     year: 2012-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 12
   fields:
@@ -126,6 +137,7 @@
     artist: Drake
     year: 2011-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 13
   fields:
@@ -133,6 +145,7 @@
     artist: Drake
     year: 2011-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 14
   fields:
@@ -140,6 +153,7 @@
     artist: Drake ft. Nicki Minaj
     year: 2011-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 15
   fields:
@@ -147,6 +161,7 @@
     artist: Drake ft. Rihanna
     year: 2011-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 16
   fields:
@@ -154,6 +169,7 @@
     artist: Drake
     year: 2011-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 17
   fields:
@@ -161,6 +177,7 @@
     artist: Jay Z ft. Alicia Keys
     year: 2009-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 18
   fields:
@@ -168,6 +185,7 @@
     artist: Tyga ft. Rick Ross
     year: 2013-01-01
     genre: 5
+    approved: True
 - model: songs.song
   pk: 19
   fields:
@@ -175,6 +193,7 @@
     artist: Robin Thicke ft. T.I. & Pharrell
     year: 2013-01-01
     genre: 9
+    approved: True
 - model: songs.song
   pk: 20
   fields:
@@ -182,6 +201,7 @@
     artist: Alicia Keys
     year: 2012-01-01
     genre: 9
+    approved: True
 - model: songs.song
   pk: 21
   fields:
@@ -189,6 +209,7 @@
     artist: Usher ft. Pitbull
     year: 2010-01-01
     genre: 9
+    approved: True
 - model: songs.song
   pk: 22
   fields:
@@ -196,6 +217,7 @@
     artist: Usher
     year: 2012-01-01
     genre: 9
+    approved: True
 - model: songs.song
   pk: 23
   fields:
@@ -203,6 +225,7 @@
     artist: Usher
     year: 2012-01-01
     genre: 9
+    approved: True
 - model: songs.song
   pk: 24
   fields:
@@ -210,6 +233,7 @@
     artist: Chris Brown ft. Lil' Wayne & Busta Rhymes
     year: 2011-01-01
     genre: 9
+    approved: True
 - model: songs.song
   pk: 25
   fields:
@@ -217,6 +241,7 @@
     artist: Massari
     year: 2012-01-01
     genre: 9
+    approved: True
 - model: songs.song
   pk: 26
   fields:
@@ -224,6 +249,7 @@
     artist: Chris Brown
     year: 2012-01-01
     genre: 9
+    approved: True
 - model: songs.song
   pk: 27
   fields:
@@ -231,6 +257,7 @@
     artist: Usher ft. will.i.am
     year: 2010-01-01
     genre: 9
+    approved: True
 - model: songs.song
   pk: 28
   fields:
@@ -238,6 +265,7 @@
     artist: Chris Brown
     year: 2008-01-01
     genre: 9
+    approved: True
 - model: songs.song
   pk: 29
   fields:
@@ -245,3 +273,4 @@
     artist: Nicki Minaj
     year: 2011-01-01
     genre: 9
+    approved: True
