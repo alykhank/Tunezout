@@ -3,6 +3,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.contrib import auth, messages
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
 
 from songs.models import Genre, Song
 
@@ -12,7 +14,7 @@ def login(request):
 	user = auth.authenticate(username=username, password=password)
 	if user is not None and user.is_active:
 		auth.login(request, user)
-		messages.success(request, 'Logged in as ' + username + '.')
+		messages.success(request, 'Logged in as ' + user.username + '.')
 		return HttpResponseRedirect(reverse('songs:index'))
 	else:
 		messages.error(request, 'Invalid login.')
@@ -22,6 +24,17 @@ def logout(request):
 	auth.logout(request)
 	messages.success(request, 'Successfully logged out.')
 	return HttpResponseRedirect(reverse('songs:index'))
+
+def register(request):
+	if request.method == 'POST':
+		form = UserCreationForm(request.POST)
+		if form.is_valid():
+			new_user = form.save()
+			messages.success(request, 'Successfully created user ' + new_user.username + '.')
+			return HttpResponseRedirect(reverse('songs:index'))
+	else:
+		form = UserCreationForm()
+	return render(request, 'songs/register.html', {'form': form})
 
 class IndexView(generic.ListView):
 	template_name = 'songs/index.html'

@@ -1,4 +1,8 @@
+{% extends 'songs/base.html' %}
+
+{% block content %}
 <p>{{ song.title }}</p>
 <p>{{ song.artist }}</p>
 <p>{{ song.year|date:"Y" }}</p>
 <p>{{ song.genre }}</p>
+{% endblock content %}

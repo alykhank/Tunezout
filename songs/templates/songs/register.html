@@ -1,0 +1,13 @@
+{% extends 'songs/base.html' %}
+
+{% block content %}
+<h1>Create Account</h1>
+
+<form action="" method="post" class="create-user" role="form">
+{% csrf_token %}
+	<div class="form-group">
+	{{ form.as_p }}
+	</div>
+	<button type="submit" class="btn btn-info">Create</button>
+</form>
+{% endblock content %}
