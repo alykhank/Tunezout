@@ -30,8 +30,23 @@
 	mixpanel.init("7e6a46fb3477d2144fe571da2ba52958");</script><!-- end Mixpanel -->
 </head>
 <body>
-<a href="{% url 'login' %}?next=/">Login</a>
-<a href="{% url 'logout' %}?next=/">Logout</a>
+	<nav class="navbar navbar-default navbar-static-top" role="navigation">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+			<span class="sr-only">Toggle navigation</span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			</button>
+			<a class="navbar-brand visible-xs" href="/">Tunezout</a>
+		</div><!-- navbar-header -->
+		<div class="collapse navbar-collapse navbar-ex1-collapse">
+			<ul class="nav navbar-nav">
+				<li><a href="{% url 'login' %}?next=/">Login</a></li>
+				<li><a href="{% url 'logout' %}?next=/">Logout</a></li>
+			</ul>
+		</div><!-- navbar-collapse -->
+	</nav>
 	<div class="container">
 		<div class="jumbotron">
 			<a href="/"><h1>Tune<span class="text-success">z</span>out</h1></a>
