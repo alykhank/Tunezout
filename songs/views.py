@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
+from django.contrib import messages
 
 from songs.models import Genre, Song
 
@@ -57,22 +58,24 @@ def submit(request):
 		title = request.POST['title']
 		artist = request.POST['artist']
 		year = request.POST['year'] + '-01-01'
-		genre = get_object_or_404(Genre, pk=request.POST['genre'])
+		genre = Genre.objects.get(pk=request.POST['genre'])
 		if title == '' or artist == '' or year == '':
+			messages.error(request, 'Your submission was invalid.')
 			return render(request, 'songs/index.html', {
 				'song_list': Song.objects.order_by('-score', 'title'),
 				'genre_list': genre_list,
-				'error_message': "Your submission was invalid.",
 			})
 	except (KeyError, Genre.DoesNotExist):
+		messages.error(request, 'Your submission was invalid.')
 		# Redisplay the song submission form.
 		return render(request, 'songs/index.html', {
+			'song_list': Song.objects.order_by('-score', 'title'),
 			'genre_list': genre_list,
-			'error_message': "Your submission was invalid.",
 		})
 	else:
 		s = Song(title=title, artist=artist, year=year, genre=genre)
 		s.save()
+		messages.success(request, 'Song submission successful.')
 		# Always return an HttpResponseRedirect after successfully dealing
 		# with POST data. This prevents data from being posted twice if a
 		# user hits the Back button.
@@ -81,19 +84,19 @@ def submit(request):
 def rate(request, pk, rating, genre):
 	genre_list = Genre.objects.all().order_by('name')
 	try:
-		song = get_object_or_404(Song, pk=pk)
+		song = Song.objects.get(pk=pk)
 	except (KeyError, Song.DoesNotExist):
 		# Redisplay the song submission form.
 		if genre == '0':
+			messages.error(request, 'Your rating was invalid.')
 			return render(request, 'songs/index.html', {
 				'genre_list': genre_list,
-				'error_message': "Your rating was invalid.",
 			})
 		else:
+			messages.error(request, 'Your rating was invalid.')
 			return render(request, 'songs/index.html', {
 				'genre': Genre.objects.get(id=genre),
 				'genre_list': genre_list,
-				'error_message': "Your rating was invalid.",
 			})
 	else:
 		if rating == '1':
