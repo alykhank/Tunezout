@@ -6,21 +6,21 @@
 	{% endif %}
 	<thead>
 		<tr>
-			<th>Rank</th>
 			<th>Title</th>
 			<th>Artist</th>
 			<th>Year</th>
 			{% if not genre %}
 			<th>Genre</th>
 			{% endif %}
+			{% if user.is_authenticated %}
 			<th>Rating</th>
+			{% endif %}
 		</tr>
 	</thead>
 	<tbody>
 		{% for song in song_list %}
 			{% if song.approved %}
 			<tr>
-			<td>{{ forloop.counter }}</td>
 			{% if song.title %}
 				<td>{{ song.title }}</td>
 			{% else %}
@@ -43,6 +43,7 @@
 			<td>{{ song.genre }}</td>
 			{% endif %}
 
+			{% if user.is_authenticated %}
 			<td>
 				<!-- <span class="badge">{{ song.score }}</span> -->
 				<!-- &nbsp; -->
@@ -55,6 +56,7 @@
 					</button>
 				</div>
 			</td>
+			{% endif %}
 			</tr>
 			{% endif %}
 		{% endfor %}
