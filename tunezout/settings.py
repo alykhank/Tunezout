@@ -12,8 +12,6 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-SERVER_EMAIL = 'root@tunezout.com'
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
