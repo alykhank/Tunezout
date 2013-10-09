@@ -41,9 +41,13 @@
 			<a class="navbar-brand visible-xs" href="/">Tunezout</a>
 		</div><!-- navbar-header -->
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
-			<ul class="nav navbar-nav">
-				<li><a href="{% url 'login' %}?next=/">Login</a></li>
+			<ul class="nav navbar-nav navbar-right">
+				{% if user.is_authenticated %}
+				<li class="navbar-text">{{ user }}</li>
 				<li><a href="{% url 'logout' %}?next=/">Logout</a></li>
+				{% else %}
+				<li><a href="{% url 'login' %}?next=/">Login</a></li>
+				{% endif %}
 			</ul>
 		</div><!-- navbar-collapse -->
 	</nav>
