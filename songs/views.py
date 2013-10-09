@@ -65,6 +65,12 @@ def submit(request):
 				'song_list': Song.objects.order_by('-score', 'title'),
 				'genre_list': genre_list,
 			})
+		elif len(title) > 100 or len(artist) > 100:
+			messages.error(request, 'Your submission was too long.')
+			return render(request, 'songs/index.html', {
+				'song_list': Song.objects.order_by('-score', 'title'),
+				'genre_list': genre_list,
+			})
 	except (KeyError, Genre.DoesNotExist):
 		messages.error(request, 'Your submission was invalid.')
 		# Redisplay the song submission form.
@@ -75,7 +81,7 @@ def submit(request):
 	else:
 		s = Song(title=title, artist=artist, year=year, genre=genre)
 		s.save()
-		messages.success(request, 'Song submission successful.')
+		messages.success(request, 'You successfully submitted "' + title + '" by "' + artist + '" for approval.')
 		# Always return an HttpResponseRedirect after successfully dealing
 		# with POST data. This prevents data from being posted twice if a
 		# user hits the Back button.
