@@ -13,6 +13,10 @@ body {
 	font-family: 'Bebas Neue', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
+.username, .password {
+	width: 120px;
+}
+
 .jumbotron {
 	background: none;
 	padding: 0 !important;

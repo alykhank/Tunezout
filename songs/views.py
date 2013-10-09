@@ -12,10 +12,16 @@ def login(request):
 	user = auth.authenticate(username=username, password=password)
 	if user is not None and user.is_active:
 		auth.login(request, user)
+		messages.success(request, 'Logged in as ' + username + '.')
 		return HttpResponseRedirect(reverse('songs:index'))
 	else:
 		messages.error(request, 'Invalid login.')
 		return HttpResponseRedirect(reverse('songs:index'))
+
+def logout(request):
+	auth.logout(request)
+	messages.success(request, 'Successfully logged out.')
+	return HttpResponseRedirect(reverse('songs:index'))
 
 class IndexView(generic.ListView):
 	template_name = 'songs/index.html'
