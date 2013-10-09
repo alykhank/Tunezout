@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
@@ -5,6 +6,7 @@ from django.views import generic
 from django.contrib import auth, messages
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.core.mail import mail_managers
 
 from songs.models import Genre, Song
 
@@ -112,6 +114,9 @@ def submit(request):
 		s = Song(title=title, artist=artist, year=year, genre=genre)
 		s.save()
 		messages.success(request, 'You successfully submitted "' + title + '" by "' + artist + '" for approval.')
+		subject = '[Tunezout] Song Submission: "' + title + '" by "' + artist + '"'
+		message = '[' + datetime.now().ctime() + '] A new song, "' + title + '" by "' + artist + '", was submitted to Tunezout at ' + request.build_absolute_uri() + '.'
+		mail_managers(subject, message)
 		# Always return an HttpResponseRedirect after successfully dealing
 		# with POST data. This prevents data from being posted twice if a
 		# user hits the Back button.
