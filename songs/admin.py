@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.models import User
 from songs.models import Genre, Song, TwitterProfile
 
 class SongInline(admin.TabularInline):
@@ -24,6 +25,9 @@ class SongAdmin(admin.ModelAdmin):
 		self.message_user(request, "%s successfully marked as approved." % message_bit)
 	make_approved.short_description = "Mark selected songs as approved"
 
+class TwitterProfileAdmin(admin.ModelAdmin):
+	list_display = ('screen_name',)
+
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Song, SongAdmin)
-admin.site.register(TwitterProfile)
+admin.site.register(TwitterProfile, TwitterProfileAdmin)

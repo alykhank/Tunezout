@@ -47,14 +47,6 @@
 				<li><a href="{% url 'songs:logout' %}">Logout</a></li>
 			</ul>
 			{% else %}
-			<form method="post" action="{% url 'songs:login' %}" class="navbar-form navbar-right form-inline" role="form">
-				{% csrf_token %}
-				<div class="form-group">
-					<input type="text" name="username" placeholder="Username" class="form-control username">
-					<input type="password" name="password" placeholder="Password" class="form-control password">
-				</div>
-				<button type="submit" class="btn btn-info">Submit</button>
-			</form>
 			<ul class="nav navbar-nav navbar-right">
 				<li><a href="{% url 'songs:twitter_login' %}"><img src="{{ STATIC_URL }}img/sign-in-with-twitter-gray.png" alt="Sign in with Twitter"></a></li>
 			</ul>

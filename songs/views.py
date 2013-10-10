@@ -22,33 +22,10 @@ twitter = OAuth1Service(
 	base_url = 'https://api.twitter.com/'
 )
 
-def login(request):
-	username = request.POST.get('username', '')
-	password = request.POST.get('password', '')
-	user = authenticate(username=username, password=password)
-	if user is not None and user.is_active:
-		login(request, user)
-		messages.success(request, 'Logged in as ' + user.username + '.')
-		return HttpResponseRedirect(reverse('songs:index'))
-	else:
-		messages.error(request, 'Invalid login.')
-		return HttpResponseRedirect(reverse('songs:index'))
-
 def logout(request):
 	django_logout(request)
 	messages.success(request, 'Successfully logged out.')
 	return HttpResponseRedirect(reverse('songs:index'))
-
-def register(request):
-	if request.method == 'POST':
-		form = UserCreationForm(request.POST)
-		if form.is_valid():
-			new_user = form.save()
-			messages.success(request, 'Successfully created user ' + new_user.username + '.')
-			return HttpResponseRedirect(reverse('songs:index'))
-	else:
-		form = UserCreationForm()
-	return render(request, 'songs/register.html', {'form': form})
 
 def twitter_login(request):
 	request_token = twitter.get_raw_request_token(params={'oauth_callback': request.build_absolute_uri(reverse('songs:twitter_success'))})
@@ -77,12 +54,32 @@ def twitter_success(request):
 		if access_token.status_code != 200:
 			return twitter_login_failed(request)
 		r = urlparse.parse_qs(access_token.text)
-		request.session['access_token'] = r['oauth_token'][0]
-		request.session['access_token_secret'] = r['oauth_token_secret'][0]
+		oauth_token = r['oauth_token'][0]
+		request.session['access_token'] = oauth_token
+		oauth_token_secret = r['oauth_token_secret'][0]
+		request.session['access_token_secret'] = oauth_token_secret
 		request.session['user_id'] = r['user_id'][0]
-		request.session['screen_name'] = r['screen_name'][0]
+		screen_name = r['screen_name'][0]
+		request.session['screen_name'] = screen_name
 		del request.session['request_token']
 		del request.session['request_token_secret']
+
+		try:
+			user = User.objects.get(username=screen_name)
+		except:
+			user = User.objects.create_user(screen_name, None, oauth_token_secret)
+			profile = TwitterProfile(user=user, oauth_token=oauth_token, oauth_token_secret=oauth_token_secret, screen_name=screen_name)
+			profile.save()
+
+		user = authenticate(username=screen_name, password=oauth_token_secret)
+		if user is not None and user.is_active:
+			login(request, user)
+			messages.success(request, 'Logged in as ' + user.username + '.')
+			return HttpResponseRedirect(reverse('songs:index'))
+		else:
+			messages.error(request, 'Invalid login.')
+			return HttpResponseRedirect(reverse('songs:index'))
+
 		messages.success(request, 'Logged in with Twitter as ' + request.session['screen_name'] + '.')
 		return HttpResponseRedirect(reverse('songs:index'))
 	else:
