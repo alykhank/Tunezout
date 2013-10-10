@@ -5,9 +5,9 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
-from django.contrib import auth, messages
-from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.core.mail import mail_managers
 
 from songs.models import Genre, Song
@@ -25,9 +25,9 @@ twitter = OAuth1Service(
 def login(request):
 	username = request.POST.get('username', '')
 	password = request.POST.get('password', '')
-	user = auth.authenticate(username=username, password=password)
+	user = authenticate(username=username, password=password)
 	if user is not None and user.is_active:
-		auth.login(request, user)
+		login(request, user)
 		messages.success(request, 'Logged in as ' + user.username + '.')
 		return HttpResponseRedirect(reverse('songs:index'))
 	else:
@@ -35,7 +35,7 @@ def login(request):
 		return HttpResponseRedirect(reverse('songs:index'))
 
 def logout(request):
-	auth.logout(request)
+	logout(request)
 	messages.success(request, 'Successfully logged out.')
 	return HttpResponseRedirect(reverse('songs:index'))
 
@@ -53,15 +53,17 @@ def register(request):
 def twitter_login(request):
 	request_token = twitter.get_raw_request_token(params={'oauth_callback': request.build_absolute_uri(reverse('songs:twitter_success'))})
 	if request_token.status_code != 200:
-		messages.error(request, 'Twitter login failed.')
-		return HttpResponseRedirect(reverse('songs:index'))
+		return twitter_login_failed(request)
 	r = urlparse.parse_qs(request_token.text)
 	if not r['oauth_callback_confirmed'][0]:
-		messages.error(request, 'Twitter login failed.')
-		return HttpResponseRedirect(reverse('songs:index'))
+		return twitter_login_failed(request)
 	request.session['request_token'] = r['oauth_token'][0]
 	request.session['request_token_secret'] = r['oauth_token_secret'][0]
 	return HttpResponseRedirect(twitter.base_url + 'oauth/authenticate?oauth_token=' + request.session['request_token'])
+
+def twitter_login_failed(request):
+	messages.error(request, 'Twitter login failed.')
+	return HttpResponseRedirect(reverse('songs:index'))
 
 def twitter_success(request):
 	oauth_token = request.GET.get('oauth_token')
@@ -70,12 +72,10 @@ def twitter_success(request):
 		request_token = request.session['request_token']
 		request_token_secret = request.session['request_token_secret']
 		if request_token != oauth_token:
-			messages.error(request, 'Twitter login failed.')
-			return HttpResponseRedirect(reverse('songs:index'))
+			return twitter_login_failed(request)
 		access_token = twitter.get_raw_access_token(request_token, request_token_secret, params={'oauth_verifier': oauth_verifier})
 		if access_token.status_code != 200:
-			messages.error(request, 'Twitter login failed.')
-			return HttpResponseRedirect(reverse('songs:index'))
+			return twitter_login_failed(request)
 		r = urlparse.parse_qs(access_token.text)
 		request.session['access_token'] = r['oauth_token'][0]
 		request.session['access_token_secret'] = r['oauth_token_secret'][0]
@@ -87,8 +87,7 @@ def twitter_success(request):
 		messages.success(request, 'Logged in with Twitter as ' + request.session['screen_name'] + '.')
 		return HttpResponseRedirect(reverse('songs:index'))
 	else:
-		messages.error(request, 'Twitter login failed.')
-		return HttpResponseRedirect(reverse('songs:index'))
+		return twitter_login_failed(request)
 
 class IndexView(generic.ListView):
 	template_name = 'songs/index.html'
