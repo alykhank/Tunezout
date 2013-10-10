@@ -1,5 +1,5 @@
 from django.contrib import admin
-from songs.models import Genre, Song
+from songs.models import Genre, Song, TwitterProfile
 
 class SongInline(admin.TabularInline):
 	model = Song
@@ -26,3 +26,4 @@ class SongAdmin(admin.ModelAdmin):
 
 admin.site.register(Genre, GenreAdmin)
 admin.site.register(Song, SongAdmin)
+admin.site.register(TwitterProfile)

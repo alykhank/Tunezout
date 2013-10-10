@@ -10,7 +10,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import mail_managers
 
-from songs.models import Genre, Song
+from songs.models import Genre, Song, TwitterProfile
 
 twitter = OAuth1Service(
 	name = 'twitter',
