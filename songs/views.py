@@ -6,7 +6,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.core.urlresolvers import reverse
 from django.views import generic
 from django.contrib import messages
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login, logout as django_logout
 from django.contrib.auth.models import User
 from django.core.mail import mail_managers
 
@@ -35,7 +35,7 @@ def login(request):
 		return HttpResponseRedirect(reverse('songs:index'))
 
 def logout(request):
-	logout(request)
+	django_logout(request)
 	messages.success(request, 'Successfully logged out.')
 	return HttpResponseRedirect(reverse('songs:index'))
 
@@ -81,7 +81,6 @@ def twitter_success(request):
 		request.session['access_token_secret'] = r['oauth_token_secret'][0]
 		request.session['user_id'] = r['user_id'][0]
 		request.session['screen_name'] = r['screen_name'][0]
-		# request.session['twitter_session'] = twitter.get_auth_session(request_token, request_token_secret)
 		del request.session['request_token']
 		del request.session['request_token_secret']
 		messages.success(request, 'Logged in with Twitter as ' + request.session['screen_name'] + '.')
