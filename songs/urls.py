@@ -11,7 +11,6 @@ urlpatterns = patterns('',
 	url(r'^rate/(?P<pk>\d+)/(?P<rating>\d)/(?P<genre>\d+)/$', views.rate, name='rate'),
 	url(r'^login/$', views.login, name='login'),
 	url(r'^logout/$', views.logout, name='logout'),
-	url(r'^register/$', views.register, name='register'),
 	url(r'^twitter/login/$', views.twitter_login, name='twitter_login'),
 	url(r'^twitter/success/$', views.twitter_success, name='twitter_success'),
 )
