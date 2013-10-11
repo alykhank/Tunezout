@@ -10,7 +10,9 @@ ADMINS = (
     ('Alykhan Kanji', 'github@alykhan.com'),
 )
 
-MANAGERS = ADMINS
+MANAGERS = ADMINS + (
+    ('Tunezout', 'tunezout@gmail.com'),
+)
 
 SERVER_EMAIL = 'root@tunezout.com'
 EMAIL_HOST = 'smtp.sendgrid.net'
