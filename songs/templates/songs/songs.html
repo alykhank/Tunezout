@@ -6,6 +6,7 @@
 	{% endif %}
 	<thead>
 		<tr>
+			<th>Rank</th>
 			<th>Title</th>
 			<th>Artist</th>
 			<th>Year</th>
@@ -19,8 +20,9 @@
 	</thead>
 	<tbody>
 		{% for song in song_list %}
-			{% if song.approved %}
 			<tr>
+			<td>{{ forloop.counter }}</td>
+
 			{% if song.title %}
 				<td>{{ song.title }}</td>
 			{% else %}
@@ -58,7 +60,6 @@
 			</td>
 			{% endif %}
 			</tr>
-			{% endif %}
 		{% endfor %}
 	</tbody>
 </table>

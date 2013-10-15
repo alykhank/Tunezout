@@ -89,7 +89,7 @@ class IndexView(generic.ListView):
 	template_name = 'songs/index.html'
 
 	def get_queryset(self):
-		return Song.objects.order_by('-score', 'title')
+		return Song.objects.filter(approved=True).order_by('-score', 'title')
 
 	def get_context_data(self, **kwargs):
 		# Call the base implementation first to get a context
@@ -107,7 +107,7 @@ class GenreView(generic.ListView):
 
 	def get_queryset(self):
 		genre = Genre.objects.filter(id=self.kwargs['genre'])
-		return Song.objects.filter(genre=genre).order_by('-score', 'title')
+		return Song.objects.filter(approved=True).filter(genre=genre).order_by('-score', 'title')
 
 	def get_context_data(self, **kwargs):
 		# Call the base implementation first to get a context
@@ -122,7 +122,7 @@ class YearView(generic.ListView):
 
 	def get_queryset(self):
 		year = self.kwargs['year']
-		return Song.objects.filter(year__year=year).order_by('-score', 'title')
+		return Song.objects.filter(approved=True).filter(year__year=year).order_by('-score', 'title')
 
 	def get_context_data(self, **kwargs):
 		# Call the base implementation first to get a context
@@ -141,20 +141,20 @@ def submit(request):
 		if title == '' or artist == '' or year == '':
 			messages.error(request, 'Your submission was invalid.')
 			return render(request, 'songs/index.html', {
-				'song_list': Song.objects.order_by('-score', 'title'),
+				'song_list': Song.objects.filter(approved=True).order_by('-score', 'title'),
 				'genre_list': genre_list,
 			})
 		elif len(title) > 100 or len(artist) > 100:
 			messages.error(request, 'Your submission was too long.')
 			return render(request, 'songs/index.html', {
-				'song_list': Song.objects.order_by('-score', 'title'),
+				'song_list': Song.objects.filter(approved=True).order_by('-score', 'title'),
 				'genre_list': genre_list,
 			})
 	except (KeyError, Genre.DoesNotExist):
 		messages.error(request, 'Your submission was invalid.')
 		# Redisplay the song submission form.
 		return render(request, 'songs/index.html', {
-			'song_list': Song.objects.order_by('-score', 'title'),
+			'song_list': Song.objects.filter(approved=True).order_by('-score', 'title'),
 			'genre_list': genre_list,
 		})
 	else:
