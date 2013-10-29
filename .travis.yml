@@ -1,6 +1,4 @@
 language: python
-before_script:
-  - psql -c 'create database tunezout;' -U postgres
 # command to run tests
 script: python manage.py test songs
-env: DATABASE_URL=postgres://postgres@localhost/tunezout
+env: DATABASE_URL=postgres://postgres@localhost/
