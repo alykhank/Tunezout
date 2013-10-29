@@ -1,4 +1,4 @@
 language: python
 # command to run tests
 script: python manage.py test songs
-env: DATABASE_URL=postgres://postgres@localhost/
+env: DATABASE_URL=postgres://postgres@localhost/tunezout
