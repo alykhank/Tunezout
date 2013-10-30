@@ -64,6 +64,7 @@ class SongIndexViewTests(TestCase):
 		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved1>', '<Song: Approved2>'])
 		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
 
+class SongDetailViewTests(TestCase):
 	def test_detail_view_with_one_unapproved_song(self):
 		"""
 		The song detail page should not display a song's information when it is not approved.
@@ -83,6 +84,7 @@ class SongIndexViewTests(TestCase):
 		self.assertContains(response, song.title, status_code=200)
 		self.assertEqual(response.context['song'], song)
 
+class SongGenreViewTests(TestCase):
 	def test_genre_view_with_one_song_of_same_genre(self):
 		"""
 		The genre view should display songs with the same genre.
@@ -98,7 +100,7 @@ class SongIndexViewTests(TestCase):
 
 	def test_genre_view_with_one_song_of_different_genre(self):
 		"""
-		The genre view should display songs with the same genre.
+		The genre view should not display songs with a different genre.
 		"""
 		genre1 = Genre.objects.create(name="MyGenre1")
 		genre2 = Genre.objects.create(name="MyGenre2")
@@ -112,7 +114,7 @@ class SongIndexViewTests(TestCase):
 
 	def test_genre_view_with_same_genre_song_and_different_genre_song(self):
 		"""
-		The genre view should display songs with the same genre.
+		The genre view should display only songs with the same genre.
 		"""
 		genre1 = Genre.objects.create(name="MyGenre1")
 		genre2 = Genre.objects.create(name="MyGenre2")
@@ -124,4 +126,42 @@ class SongIndexViewTests(TestCase):
 		self.assertNotContains(response, song2.title)
 		self.assertEqual(response.context['genre'], genre1)
 		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre1>', '<Genre: MyGenre2>'])
+		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved1>'])
+
+class SongYearViewTests(TestCase):
+	def test_year_view_with_one_song_of_same_year(self):
+		"""
+		The year view should display songs with the same year.
+		"""
+		genre = Genre.objects.create(name="MyGenre")
+		song = create_song(title="Approved", year="1995-01-01", genre=genre)
+		response = self.client.get(reverse('songs:year', args=(1995,)))
+		self.assertContains(response, genre.name, status_code=200)
+		self.assertContains(response, song.title)
+		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
+		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved>'])
+
+	def test_year_view_with_one_song_of_different_year(self):
+		"""
+		The year view should not display songs with a different year.
+		"""
+		genre = Genre.objects.create(name="MyGenre")
+		song = create_song(title="Approved", year="1995-01-01", genre=genre)
+		response = self.client.get(reverse('songs:year', args=(2005,)))
+		self.assertContains(response, genre.name, status_code=200)
+		self.assertNotContains(response, song.title)
+		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
+		self.assertQuerysetEqual(response.context['song_list'], [])
+
+	def test_year_view_with_same_year_song_and_different_year_song(self):
+		"""
+		The year view should display only songs with the same year.
+		"""
+		genre = Genre.objects.create(name="MyGenre")
+		song1 = create_song(title="Approved1", year="1995-01-01", genre=genre)
+		song2 = create_song(title="Approved2", year="2005-01-01", genre=genre)
+		response = self.client.get(reverse('songs:year', args=(1995,)))
+		self.assertContains(response, genre.name, status_code=200)
+		self.assertContains(response, song1.title)
+		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
 		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved1>'])
