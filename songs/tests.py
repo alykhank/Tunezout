@@ -2,7 +2,7 @@ from django.test import TestCase
 from django.core.urlresolvers import reverse
 from songs.models import Song, Genre
 
-def create_song(title, artist, year, genre, approved):
+def create_song(title, genre, artist="Artist", year="2000-01-01", approved=True):
 	"""
 	Creates a song with the given attributes.
 	"""
@@ -23,7 +23,7 @@ class SongIndexViewTests(TestCase):
 		Songs with approved=False should not be displayed on the index page.
 		"""
 		genre = Genre.objects.create(name="MyGenre")
-		create_song(title="Unapproved", artist="Unapproved", year="2000-01-01", genre=genre, approved=False)
+		create_song(title="Unapproved", genre=genre, approved=False)
 		response = self.client.get(reverse('songs:index'))
 		self.assertEqual(response.status_code, 200)
 		self.assertQuerysetEqual(response.context['song_list'], [])
@@ -34,7 +34,7 @@ class SongIndexViewTests(TestCase):
 		Songs with approved=True should be displayed on the index page.
 		"""
 		genre = Genre.objects.create(name="MyGenre")
-		create_song(title="Approved", artist="Approved", year="2000-01-01", genre=genre, approved=True)
+		create_song(title="Approved", genre=genre, approved=True)
 		response = self.client.get(reverse('songs:index'))
 		self.assertEqual(response.status_code, 200)
 		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved>'])
@@ -45,8 +45,8 @@ class SongIndexViewTests(TestCase):
 		Even if approved and unapproved songs exist, only approved songs should be displayed.
 		"""
 		genre = Genre.objects.create(name="MyGenre")
-		create_song(title="Unapproved", artist="Unapproved", year="2000-01-01", genre=genre, approved=False)
-		create_song(title="Approved", artist="Approved", year="2000-01-01", genre=genre, approved=True)
+		create_song(title="Unapproved", genre=genre, approved=False)
+		create_song(title="Approved", genre=genre, approved=True)
 		response = self.client.get(reverse('songs:index'))
 		self.assertEqual(response.status_code, 200)
 		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved>'])
@@ -57,8 +57,8 @@ class SongIndexViewTests(TestCase):
 		The songs index page may display multiple songs.
 		"""
 		genre = Genre.objects.create(name="MyGenre")
-		create_song(title="Approved1", artist="Approved1", year="2000-01-01", genre=genre, approved=True)
-		create_song(title="Approved2", artist="Approved2", year="2000-01-01", genre=genre, approved=True)
+		create_song(title="Approved1", genre=genre)
+		create_song(title="Approved2", genre=genre)
 		response = self.client.get(reverse('songs:index'))
 		self.assertEqual(response.status_code, 200)
 		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved1>', '<Song: Approved2>'])
@@ -69,7 +69,7 @@ class SongIndexViewTests(TestCase):
 		The song detail page should not display a song's information when it is not approved.
 		"""
 		genre = Genre.objects.create(name="MyGenre")
-		song = create_song(title="Unapproved", artist="Unapproved", year="2000-01-01", genre=genre, approved=False)
+		song = create_song(title="Unapproved", genre=genre, approved=False)
 		response = self.client.get(reverse('songs:detail', args=(song.id,)))
 		self.assertEqual(response.status_code, 404)
 
@@ -78,16 +78,17 @@ class SongIndexViewTests(TestCase):
 		The song detail page should display a song's information when it is approved.
 		"""
 		genre = Genre.objects.create(name="MyGenre")
-		song = create_song(title="Approved", artist="Approved", year="2000-01-01", genre=genre, approved=True)
+		song = create_song(title="Approved", genre=genre, approved=True)
 		response = self.client.get(reverse('songs:detail', args=(song.id,)))
 		self.assertContains(response, song.title, status_code=200)
+		self.assertEqual(response.context['song'], song)
 
 	def test_genre_view_with_one_song_of_same_genre(self):
 		"""
 		The genre view should display songs with the same genre.
 		"""
 		genre = Genre.objects.create(name="MyGenre")
-		song = create_song(title="Approved", artist="Approved", year="2000-01-01", genre=genre, approved=True)
+		song = create_song(title="Approved", genre=genre)
 		response = self.client.get(reverse('songs:genre', args=(genre.id,)))
 		self.assertContains(response, genre.name, status_code=200)
 		self.assertContains(response, song.title)
@@ -101,7 +102,7 @@ class SongIndexViewTests(TestCase):
 		"""
 		genre1 = Genre.objects.create(name="MyGenre1")
 		genre2 = Genre.objects.create(name="MyGenre2")
-		song = create_song(title="Approved", artist="Approved", year="2000-01-01", genre=genre2, approved=True)
+		song = create_song(title="Approved", genre=genre2)
 		response = self.client.get(reverse('songs:genre', args=(genre1.id,)))
 		self.assertContains(response, genre1.name, status_code=200)
 		self.assertNotContains(response, song.title)
@@ -115,8 +116,8 @@ class SongIndexViewTests(TestCase):
 		"""
 		genre1 = Genre.objects.create(name="MyGenre1")
 		genre2 = Genre.objects.create(name="MyGenre2")
-		song1 = create_song(title="Approved1", artist="Approved1", year="2000-01-01", genre=genre1, approved=True)
-		song2 = create_song(title="Approved2", artist="Approved2", year="2000-01-01", genre=genre2, approved=True)
+		song1 = create_song(title="Approved1", genre=genre1)
+		song2 = create_song(title="Approved2", genre=genre2)
 		response = self.client.get(reverse('songs:genre', args=(genre1.id,)))
 		self.assertContains(response, genre1.name, status_code=200)
 		self.assertContains(response, song1.title)
