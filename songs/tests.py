@@ -63,3 +63,21 @@ class SongIndexViewTests(TestCase):
 		self.assertEqual(response.status_code, 200)
 		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved1>', '<Song: Approved2>'])
 		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
+
+	def test_detail_view_with_one_unapproved_song(self):
+		"""
+		The song detail page should not display a song's information when it is not approved.
+		"""
+		genre = Genre.objects.create(name="MyGenre")
+		song = create_song(title="Unapproved", artist="Unapproved", year="2000-01-01", genre=genre, approved=False)
+		response = self.client.get(reverse('songs:detail', args=(song.id,)))
+		self.assertEqual(response.status_code, 404)
+
+	def test_detail_view_with_one_approved_song(self):
+		"""
+		The song detail page should display a song's information when it is approved.
+		"""
+		genre = Genre.objects.create(name="MyGenre")
+		song = create_song(title="Approved", artist="Approved", year="2000-01-01", genre=genre, approved=True)
+		response = self.client.get(reverse('songs:detail', args=(song.id,)))
+		self.assertContains(response, song.title, status_code=200)

@@ -102,6 +102,12 @@ class DetailView(generic.DetailView):
 	model = Song
 	template_name = 'songs/detail.html'
 
+	def get_queryset(self):
+		"""
+		Excludes any songs that are not approved.
+		"""
+		return Song.objects.filter(id=self.kwargs['pk'], approved=True)
+
 class GenreView(generic.ListView):
 	template_name = 'songs/index.html'
 
