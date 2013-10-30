@@ -145,7 +145,7 @@ def submit(request):
 		year = request.POST['year'] + '-01-01'
 		genre = Genre.objects.get(pk=request.POST['genre'])
 		if title == '' or artist == '' or year == '':
-			messages.error(request, 'Your submission was invalid.')
+			messages.error(request, 'You left something blank!')
 			return render(request, 'songs/index.html', {
 				'song_list': Song.objects.filter(approved=True).order_by('-score', 'title'),
 				'genre_list': genre_list,

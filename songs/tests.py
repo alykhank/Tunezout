@@ -165,3 +165,49 @@ class SongYearViewTests(TestCase):
 		self.assertContains(response, song1.title)
 		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
 		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved1>'])
+
+class SongSubmitViewTests(TestCase):
+	def test_submit_view_with_empty_submission(self):
+		"""
+		The submit view should display an error message on a blank submission.
+		"""
+		genre = Genre.objects.create(name="MyGenre")
+		response = self.client.post(reverse('songs:submit'), {'title': '', 'artist': '', 'year': '', 'genre': genre.id})
+		self.assertContains(response, genre.name, status_code=200)
+		self.assertContains(response, 'You left something blank!')
+		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
+		self.assertQuerysetEqual(response.context['song_list'], [])
+
+	def test_submit_view_with_too_long_submission(self):
+		"""
+		The submit view should display an error message on a submission that is too long.
+		"""
+		genre = Genre.objects.create(name="MyGenre")
+		long_title = 'AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA'
+		response = self.client.post(reverse('songs:submit'), {'title': long_title, 'artist': 'Artist', 'year': '1995', 'genre': genre.id})
+		self.assertContains(response, genre.name, status_code=200)
+		self.assertContains(response, 'Your submission was too long.')
+		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
+		self.assertQuerysetEqual(response.context['song_list'], [])
+
+	def test_submit_view_with_invalid_submission(self):
+		"""
+		The submit view should display an error message on a submission that is invalid.
+		"""
+		response = self.client.post(reverse('songs:submit'), {'title': 'Unapproved', 'artist': 'Artist', 'year': '1995', 'genre': 0})
+		self.assertEqual(response.status_code, 200)
+		self.assertContains(response, 'Your submission was invalid.')
+		self.assertQuerysetEqual(response.context['genre_list'], [])
+		self.assertQuerysetEqual(response.context['song_list'], [])
+
+	def test_submit_view_with_successful_submission(self):
+		"""
+		The submit view should display a success message on a submission that is successful.
+		"""
+		genre = Genre.objects.create(name="MyGenre")
+		song = {'title': 'Unapproved', 'artist': 'Artist', 'year': '1995', 'genre': genre.id}
+		response = self.client.post(reverse('songs:submit'), song, follow=True)
+		self.assertEqual(response.status_code, 200)
+		self.assertContains(response, 'You successfully submitted &quot;' + song['title'] + '&quot; by &quot;' + song['artist'] + '&quot; for approval.')
+		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
+		self.assertQuerysetEqual(response.context['song_list'], [])
