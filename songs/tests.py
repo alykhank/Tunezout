@@ -1,5 +1,7 @@
 from django.test import TestCase
 from django.core.urlresolvers import reverse
+from django.contrib.auth import login
+from django.contrib.auth.models import User
 from songs.models import Song, Genre
 
 def create_song(title, genre, artist="Artist", year="2000-01-01", approved=True):
@@ -211,3 +213,22 @@ class SongSubmitViewTests(TestCase):
 		self.assertContains(response, 'You successfully submitted &quot;' + song['title'] + '&quot; by &quot;' + song['artist'] + '&quot; for approval.')
 		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
 		self.assertQuerysetEqual(response.context['song_list'], [])
+
+class SongLogoutViewTests(TestCase):
+	def test_logout_view_when_logged_out(self):
+		"""
+		The logout view should display a success message when logged out.
+		"""
+		response = self.client.get(reverse('songs:logout'), follow=True)
+		self.assertEqual(response.status_code, 200)
+		self.assertContains(response, 'Successfully logged out.')
+
+	def test_logout_view_when_logged_in(self):
+		"""
+		The logout view should display a success message when logged in.
+		"""
+		user = User.objects.create_user('test', password='test')
+		self.assertTrue(self.client.login(username='test', password='test'))
+		response = self.client.get(reverse('songs:logout'), follow=True)
+		self.assertEqual(response.status_code, 200)
+		self.assertContains(response, 'Successfully logged out.')
