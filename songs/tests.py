@@ -81,3 +81,46 @@ class SongIndexViewTests(TestCase):
 		song = create_song(title="Approved", artist="Approved", year="2000-01-01", genre=genre, approved=True)
 		response = self.client.get(reverse('songs:detail', args=(song.id,)))
 		self.assertContains(response, song.title, status_code=200)
+
+	def test_genre_view_with_one_song_of_same_genre(self):
+		"""
+		The genre view should display songs with the same genre.
+		"""
+		genre = Genre.objects.create(name="MyGenre")
+		song = create_song(title="Approved", artist="Approved", year="2000-01-01", genre=genre, approved=True)
+		response = self.client.get(reverse('songs:genre', args=(genre.id,)))
+		self.assertContains(response, genre.name, status_code=200)
+		self.assertContains(response, song.title)
+		self.assertEqual(response.context['genre'], genre)
+		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre>'])
+		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved>'])
+
+	def test_genre_view_with_one_song_of_different_genre(self):
+		"""
+		The genre view should display songs with the same genre.
+		"""
+		genre1 = Genre.objects.create(name="MyGenre1")
+		genre2 = Genre.objects.create(name="MyGenre2")
+		song = create_song(title="Approved", artist="Approved", year="2000-01-01", genre=genre2, approved=True)
+		response = self.client.get(reverse('songs:genre', args=(genre1.id,)))
+		self.assertContains(response, genre1.name, status_code=200)
+		self.assertNotContains(response, song.title)
+		self.assertEqual(response.context['genre'], genre1)
+		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre1>', '<Genre: MyGenre2>'])
+		self.assertQuerysetEqual(response.context['song_list'], [])
+
+	def test_genre_view_with_same_genre_song_and_different_genre_song(self):
+		"""
+		The genre view should display songs with the same genre.
+		"""
+		genre1 = Genre.objects.create(name="MyGenre1")
+		genre2 = Genre.objects.create(name="MyGenre2")
+		song1 = create_song(title="Approved1", artist="Approved1", year="2000-01-01", genre=genre1, approved=True)
+		song2 = create_song(title="Approved2", artist="Approved2", year="2000-01-01", genre=genre2, approved=True)
+		response = self.client.get(reverse('songs:genre', args=(genre1.id,)))
+		self.assertContains(response, genre1.name, status_code=200)
+		self.assertContains(response, song1.title)
+		self.assertNotContains(response, song2.title)
+		self.assertEqual(response.context['genre'], genre1)
+		self.assertQuerysetEqual(response.context['genre_list'], ['<Genre: MyGenre1>', '<Genre: MyGenre2>'])
+		self.assertQuerysetEqual(response.context['song_list'], ['<Song: Approved1>'])
