@@ -1,0 +1,3 @@
+[run]
+source = songs
+omit = songs/admin*, songs/tests*
