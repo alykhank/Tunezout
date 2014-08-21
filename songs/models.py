@@ -15,7 +15,7 @@ class Song(models.Model):
 	up = models.PositiveIntegerField(default=0)
 	down = models.PositiveIntegerField(default=0)
 	score = models.IntegerField(default=0)
-	approved = models.BooleanField()
+	approved = models.BooleanField(default=False)
 
 	def __unicode__(self):
 		return self.title
